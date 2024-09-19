@@ -1,11 +1,15 @@
 import { Outlet } from "react-router-dom";
 import TheNavBar from "./components/TheNavBar";
+import TheFooter from "./components/TheFooter";
 
 function App() {
   return (
     <>
       <TheNavBar />
-      <Outlet />
+      <main className="min-h-[calc(100vh-150px)]">
+        <Outlet />
+      </main>
+      <TheFooter />
     </>
   );
 }
