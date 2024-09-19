@@ -1,8 +1,14 @@
 import React from "react";
 import TheLogo from "./TheLogo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const TheNavBar = () => {
+  const navigate = useNavigate();
+
+  const navigateToLogin = () => {
+    navigate("/login");
+  };
+
   return (
     <header className="bg-white shadow-md h-16">
       <div className="h-full container mx-auto px-4 flex justify-between items-center">
@@ -67,14 +73,17 @@ const TheNavBar = () => {
               />
             </svg>
 
-            <span className="absolute flex items-center bg-red-500 w-5 h-5 text-white p-1 rounded-full -top-3 -right-3">
+            <span className="text-sm absolute flex items-center bg-red-500 w-5 h-5 text-white p-1 rounded-full -top-3 -right-3">
               0
             </span>
           </div>
 
           {/* Login */}
           <div>
-            <button className="px-5 py-1.5 text-white rounded-full bg-red-500 hover:bg-red-600">
+            <button
+              className="px-5 py-1.5 text-white rounded-full bg-red-500 hover:bg-red-600"
+              onClick={navigateToLogin}
+            >
               Login
             </button>
           </div>
