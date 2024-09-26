@@ -4,7 +4,7 @@ const imageToBase64 = async (image) => {
   reader.readAsDataURL(image);
 
   const data = await new Promise((resolve, reject) => {
-    reader.onload = () => resolve(reader.result);
+    reader.onloadend = () => resolve(reader.result);
 
     reader.onerror = (error) => reject(error);
   });

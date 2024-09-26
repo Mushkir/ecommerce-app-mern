@@ -12,6 +12,10 @@ const schema = new Schema(
     },
     password: String,
     profilePic: String,
+    role: {
+      type: String,
+      default: "general",
+    },
   },
   {
     timestamps: true,
