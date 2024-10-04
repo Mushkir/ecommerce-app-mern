@@ -17,6 +17,8 @@ const TheSignUpPage = () => {
     profileImg: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((previousValue) => {
@@ -37,14 +39,41 @@ const TheSignUpPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setLoading(false);
+
     try {
-      await fetch(apiEndPointObj.signUpEndPoint.url, {
+      const response = await fetch(apiEndPointObj.signUpEndPoint.url, {
         method: apiEndPointObj.signUpEndPoint.method,
         body: JSON.stringify(formData),
         headers: {
           "Content-Type": "application/json",
         },
       });
+
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      const data = await response.json();
+      console.log(data);
+
+      setLoading(true);
+
+      // Reset & clear the form inputs
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        profileImg: "",
+      });
+
+      // Hide loading state after 5s after successfull profile creation
+      setTimeout(() => {
+        setLoading(false);
+      }, 4000);
+
+      // console.log(data);
     } catch (error) {
       throw new Error(`Error from: ${error}`);
     }
@@ -151,6 +180,10 @@ const TheSignUpPage = () => {
           Sign in
         </Link>
       </span>
+
+      <small className="text-center block mt-3 text-green-800 font-semibold">
+        {loading === true && "Profile created successfully..."}
+      </small>
     </div>
   );
 };

@@ -11,7 +11,10 @@ const schema = new Schema(
       unique: true,
     },
     password: String,
-    profilePic: String,
+    profilePic: {
+      type: Object,
+      required: true,
+    },
     role: {
       type: String,
       default: "general",
