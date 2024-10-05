@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import SignIn from "../assets/signin.gif";
 import TheInput from "../components/TheInput";
 import ThePasswordInput from "../components/ThePasswordInput";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import apiEndPointObj from "../common/api_uri";
 import imageToBase64 from "../helpers/helper";
 
@@ -18,6 +18,7 @@ const TheSignUpPage = () => {
   });
 
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -55,7 +56,7 @@ const TheSignUpPage = () => {
       }
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
 
       setLoading(true);
 
@@ -73,6 +74,7 @@ const TheSignUpPage = () => {
         setLoading(false);
       }, 4000);
 
+      navigate("/login");
       // console.log(data);
     } catch (error) {
       throw new Error(`Error from: ${error}`);

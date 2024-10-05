@@ -3,12 +3,16 @@ import { Link } from "react-router-dom";
 import SignIn from "../assets/signin.gif";
 import TheInput from "../components/TheInput";
 import ThePasswordInput from "../components/ThePasswordInput";
+import apiEndPointObj from "../common/api_uri";
 
 const TheLoginPage = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -18,10 +22,32 @@ const TheLoginPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(formData);
+    const { email, password } = formData;
+    if (!email || !password) {
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 2000);
+      return;
+    }
+
+    const response = await fetch(apiEndPointObj.loginEndPoint.url, {
+      method: apiEndPointObj.loginEndPoint.method,
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+    if (data.error === true) {
+      setErrorMsg(data.message);
+    }
+    console.log(data);
   };
 
   return (
@@ -30,6 +56,9 @@ const TheLoginPage = () => {
         <img className="w-20 h-20 mx-auto" src={SignIn} alt="Login image" />
       </div>
       {/* {JSON.stringify(formData)} */}
+      <small className="block text-red-600 font-semibold text-center mt-4">
+        {error === true ? "All fields are required!" : errorMsg ? errorMsg : ""}
+      </small>
       <form action="" method="post" onSubmit={handleSubmit}>
         <TheInput
           label={"Email"}

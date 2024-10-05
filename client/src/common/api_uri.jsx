@@ -5,6 +5,11 @@ const apiEndPointObj = {
     url: `${API_URI}/sign-up`,
     method: "POST",
   },
+
+  loginEndPoint: {
+    url: `${API_URI}/login`,
+    method: "POST",
+  },
 };
 
 export default apiEndPointObj;
