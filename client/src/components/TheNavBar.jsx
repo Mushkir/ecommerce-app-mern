@@ -1,14 +1,26 @@
 import React from "react";
 import TheLogo from "./TheLogo";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { UserLogout } from "../redux/user/userSlice";
 
 const TheNavBar = () => {
   const navigate = useNavigate();
+
   const currentUser = useSelector((state) => state.user);
-  console.log(currentUser);
+  const dispatch = useDispatch();
+  // console.log(currentUser);
 
   const navigateToLogin = () => {
+    navigate("/login");
+  };
+
+  const proceedLogout = () => {
+    if (currentUser.currentUser) {
+      dispatch(UserLogout(currentUser));
+      return;
+    }
+
     navigate("/login");
   };
 
@@ -49,7 +61,7 @@ const TheNavBar = () => {
         <div className="flex items-center gap-5">
           {/* User */}
           <div className="cursor-pointer">
-            {currentUser ? (
+            {currentUser.currentUser ? (
               <img
                 src={currentUser.currentUser.profilePic.url}
                 className="w-10 h-10 object-cover rounded-full"
@@ -91,11 +103,10 @@ const TheNavBar = () => {
 
           {/* Login */}
           <div>
-            {currentUser ? (
+            {currentUser.currentUser ? (
               <button
                 className="px-5 py-1.5 text-white rounded-full bg-red-500 hover:bg-red-600"
-                // onClick={navigateToLogin}
-                onClick={() => alert("Log-out still not implemented!")}
+                onClick={proceedLogout}
               >
                 Logout
               </button>
