@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SignIn from "../assets/signin.gif";
 import TheInput from "../components/TheInput";
 import ThePasswordInput from "../components/ThePasswordInput";
@@ -13,6 +13,7 @@ const TheLoginPage = () => {
 
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -47,7 +48,8 @@ const TheLoginPage = () => {
     if (data.error === true) {
       setErrorMsg(data.message);
     }
-    console.log(data);
+    navigate("/");
+    // console.log(data);
   };
 
   return (

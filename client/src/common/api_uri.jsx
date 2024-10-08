@@ -10,6 +10,11 @@ const apiEndPointObj = {
     url: `${API_URI}/login`,
     method: "POST",
   },
+
+  getCurrentUserDetail: {
+    url: `${API_URI}/user-profile`,
+    method: "GET",
+  },
 };
 
 export default apiEndPointObj;

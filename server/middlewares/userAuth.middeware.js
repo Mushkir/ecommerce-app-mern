@@ -6,13 +6,15 @@ dotenv.config();
 const userAuth = (req, res, next) => {
   try {
     const token = req.cookies?.token;
+    // console.log(token);
 
     if (!token) {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
     const decodedFile = jwt.verify(token, process.env.JWT_TOKEN_KEY);
-    const userId = decodedFile._id;
+    req.userId = decodedFile.id;
+    // console.log(req.userId);
 
     next();
   } catch (error) {

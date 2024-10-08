@@ -81,3 +81,18 @@ export const LoginController = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+// GET Method
+// User detail
+export const UserDetailController = async (req, res) => {
+  // console.log(req.userId);
+  const userId = req.userId;
+
+  try {
+    if (!userId) {
+      return res.status(404).json({ message: "User not found!", error: false });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message, error: true });
+  }
+};
