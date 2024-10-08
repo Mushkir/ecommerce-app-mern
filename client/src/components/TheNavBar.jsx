@@ -9,7 +9,7 @@ const TheNavBar = () => {
 
   const currentUser = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  // console.log(currentUser);
+  // console.log(currentUser.currentUser.name);
 
   const navigateToLogin = () => {
     navigate("/login");
@@ -64,8 +64,9 @@ const TheNavBar = () => {
             {currentUser.currentUser ? (
               <img
                 src={currentUser.currentUser.profilePic.url}
-                className="w-10 h-10 object-cover rounded-full"
-                alt=""
+                className="w-10 h-10 object-cover rounded-full cursor-pointer"
+                alt={`${currentUser.currentUser.name}'s  profile picture`}
+                onClick={() => navigate("/profile")}
               />
             ) : (
               <svg
