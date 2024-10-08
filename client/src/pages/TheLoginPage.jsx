@@ -4,6 +4,8 @@ import SignIn from "../assets/signin.gif";
 import TheInput from "../components/TheInput";
 import ThePasswordInput from "../components/ThePasswordInput";
 import apiEndPointObj from "../common/api_uri";
+import { useDispatch } from "react-redux";
+import { UserLoggedIn } from "../redux/user/userSlice";
 
 const TheLoginPage = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +16,8 @@ const TheLoginPage = () => {
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -47,8 +51,13 @@ const TheLoginPage = () => {
     const data = await response.json();
     if (data.error === true) {
       setErrorMsg(data.message);
+      return;
     }
-    navigate("/");
+    // console.log(data);
+    const { resp } = data;
+
+    dispatch(UserLoggedIn(resp));
+    // navigate("/");
     // console.log(data);
   };
 
@@ -57,6 +66,7 @@ const TheLoginPage = () => {
       <div>
         <img className="w-20 h-20 mx-auto" src={SignIn} alt="Login image" />
       </div>
+
       {/* {JSON.stringify(formData)} */}
       <small className="block text-red-600 font-semibold text-center mt-4">
         {error === true ? "All fields are required!" : errorMsg ? errorMsg : ""}

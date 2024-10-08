@@ -47,24 +47,27 @@ export const LoginController = async (req, res) => {
 
   try {
     const isUserExist = await User.findOne({ email });
-    // console.log(isUserExist);
+
     if (
       !(
-        isUserExist &&
-        (await bcrypt.compareSync(password, isUserExist.password))
+        (isUserExist && bcrypt.compareSync(password, isUserExist.password)) // No need for `await` as `compareSync` is synchronous
       )
     ) {
       return res
         .status(401)
-        .json({ message: "Invalid credintials!", error: true });
+        .json({ message: "Invalid credentials!", error: true });
     }
 
-    // const token = createSecretToken(isUserExist._id);
+    // Getting user data without password
+    const { password: userPassword, ...userDataWithoutPassword } =
+      isUserExist.toObject();
+
+    // Generate JWT token
     const jwtToken = jwt.sign(
       { id: isUserExist._id },
       process.env.JWT_TOKEN_KEY,
       {
-        expiresIn: 60 * 60 * 8,
+        expiresIn: 60 * 60 * 8, // 8 hours
       }
     );
 
@@ -76,6 +79,7 @@ export const LoginController = async (req, res) => {
       .json({
         message: "Login successful",
         token: jwtToken,
+        resp: userDataWithoutPassword,
       });
   } catch (error) {
     return res.status(500).json({ message: error.message });
