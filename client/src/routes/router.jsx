@@ -5,6 +5,8 @@ import TheLoginPage from "../pages/TheLoginPage";
 import TheSignUpPage from "../pages/TheSignUpPage";
 import TheForgotPasswordPage from "../pages/TheForgotPasswordPage";
 import AddProduct from "../pages/AddProduct";
+import TheProfilePage from "../pages/TheProfilePage";
+import ThePrivateRoute from "../components/ThePrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,16 @@ const router = createBrowserRouter([
       {
         path: "/add-product",
         element: <AddProduct />,
+      },
+      {
+        path: "*",
+        element: <ThePrivateRoute />,
+        children: [
+          {
+            path: "profile",
+            element: <TheProfilePage />,
+          },
+        ],
       },
     ],
   },
