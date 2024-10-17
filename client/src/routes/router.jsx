@@ -7,6 +7,8 @@ import TheForgotPasswordPage from "../pages/TheForgotPasswordPage";
 import AddProduct from "../pages/AddProduct";
 import TheProfilePage from "../pages/TheProfilePage";
 import ThePrivateRoute from "../components/ThePrivateRoute";
+import TheAdminPanel from "../pages/TheAdminPanel";
+import TheAllUsersPage from "../pages/TheAllUsersPage"; // Corrected naming
 
 const router = createBrowserRouter([
   {
@@ -40,6 +42,16 @@ const router = createBrowserRouter([
           {
             path: "profile",
             element: <TheProfilePage />,
+          },
+          {
+            path: "admin",
+            element: <TheAdminPanel />,
+            children: [
+              {
+                path: "all-users",
+                element: <TheAllUsersPage />,
+              },
+            ],
           },
         ],
       },

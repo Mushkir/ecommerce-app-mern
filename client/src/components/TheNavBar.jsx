@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TheLogo from "./TheLogo";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,7 @@ const TheNavBar = () => {
   const currentUser = useSelector((state) => state.user);
   const dispatch = useDispatch();
   // console.log(currentUser.currentUser.name);
+  const [openMenuGroup, setOpenMenuGroup] = useState(false);
 
   const navigateToLogin = () => {
     navigate("/login");
@@ -68,13 +69,16 @@ const TheNavBar = () => {
         {/* User icons */}
         <div className="flex items-center gap-5">
           {/* User */}
-          <div className="cursor-pointer relative group flex justify-center">
+          <div
+            className="cursor-pointer relative group flex justify-center"
+            onClick={() => setOpenMenuGroup(!openMenuGroup)}
+          >
             {currentUser?.currentUser ? (
               <img
                 src={currentUser?.currentUser?.profilePic?.url}
                 className="w-10 h-10 object-cover rounded-full cursor-pointer"
                 alt={`${currentUser?.currentUser?.name}'s  profile picture`}
-                onClick={() => navigate("/profile")}
+                // onClick={() => navigate("/profile")}
               />
             ) : (
               <svg
@@ -91,11 +95,13 @@ const TheNavBar = () => {
             )}
 
             {/* Group menu for Admin panel */}
-            <div className=" absolute top-11 bg-white p-2 w-fit">
-              <nav className="whitespace-nowrap">
-                <Link>Admin Panel</Link>
-              </nav>
-            </div>
+            {openMenuGroup && (
+              <div className=" absolute top-11 bg-white p-2 w-fit">
+                <nav className="whitespace-nowrap">
+                  <Link to={"/admin/all-users"}>Admin Panel</Link>
+                </nav>
+              </div>
+            )}
           </div>
 
           {/* Cart */}

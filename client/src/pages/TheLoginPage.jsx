@@ -57,7 +57,7 @@ const TheLoginPage = () => {
     const { resp } = data;
 
     dispatch(UserLoggedIn(resp));
-    navigate("/");
+    navigate("/admin");
     // console.log(data);
   };
 
