@@ -8,7 +8,7 @@ import AddProduct from "../pages/AddProduct";
 import TheProfilePage from "../pages/TheProfilePage";
 import ThePrivateRoute from "../components/ThePrivateRoute";
 import TheAdminPanel from "../pages/TheAdminPanel";
-import TheAllUsersPage from "../pages/TheAllUsersPage"; // Corrected naming
+import TheAllUsersPage from "../pages/TheAllUsersPage";
 
 const router = createBrowserRouter([
   {
