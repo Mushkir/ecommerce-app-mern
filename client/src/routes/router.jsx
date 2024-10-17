@@ -9,6 +9,7 @@ import TheProfilePage from "../pages/TheProfilePage";
 import ThePrivateRoute from "../components/ThePrivateRoute";
 import TheAdminPanel from "../pages/TheAdminPanel";
 import TheAllUsersPage from "../pages/TheAllUsersPage";
+import TheAllProductsPage from "../pages/TheAllProductsPage";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
         element: <AddProduct />,
       },
       {
+        path: "/products",
+        element: <TheAllProductsPage />,
+      },
+      {
         path: "*",
         element: <ThePrivateRoute />,
         children: [
@@ -50,6 +55,10 @@ const router = createBrowserRouter([
               {
                 path: "all-users",
                 element: <TheAllUsersPage />,
+              },
+              {
+                path: "products",
+                element: <TheAllProductsPage />,
               },
             ],
           },

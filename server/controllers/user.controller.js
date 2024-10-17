@@ -113,3 +113,14 @@ export const UserLogoutController = async (req, res) => {
     res.status(500).json({ message: error.message, error: true });
   }
 };
+
+// GET Method
+// Get all users data
+export const GetAllUsersData = async (req, res) => {
+  try {
+    const allUsers = await User.find().sort({ name: "asc" });
+    res.status(200).json({ error: false, totalUsers: allUsers });
+  } catch (error) {
+    res.status(500).json({ message: error.message, error: true });
+  }
+};

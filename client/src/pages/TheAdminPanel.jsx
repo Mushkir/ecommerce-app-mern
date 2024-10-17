@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 const TheAdminPanel = () => {
   return (
@@ -20,17 +20,22 @@ const TheAdminPanel = () => {
         </div>
 
         {/* Admin panel side menu */}
-        <nav className="mt-[4.5rem]">
-          <ul className="">
+        <nav className="mt-[4.5rem] w-full">
+          <ul className="w-full" id="sidebar">
             {/* All users */}
-            <li className="hover:bg-slate-200 hover:transition-all p-2">
-              {" "}
-              <Link to={"all-users"}>All Users</Link>{" "}
-            </li>
+            <NavLink
+              className="hover:bg-slate-200 w-full block hover:transition-all p-2"
+              to={"all-users"}
+            >
+              All Users
+            </NavLink>
 
-            <li className="hover:bg-slate-200 hover:transition-all p-2">
-              <Link to={"products"}>Products</Link>
-            </li>
+            <NavLink
+              className="hover:bg-slate-200 w-full block hover:transition-all p-2"
+              to={"products"}
+            >
+              Products
+            </NavLink>
           </ul>
         </nav>
       </aside>

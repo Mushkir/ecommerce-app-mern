@@ -19,6 +19,10 @@ const apiEndPointObj = {
     url: `${API_URI}/logout`,
     method: "GET",
   },
+  getAllUsers: {
+    url: `${API_URI}/get-all-users`,
+    method: "GET",
+  },
 };
 
 export default apiEndPointObj;

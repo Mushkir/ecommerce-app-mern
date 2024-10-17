@@ -1,10 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { MdEdit } from "react-icons/md";
+import apiEndPointObj from "../common/api_uri";
+import dayjs from "dayjs";
 
 const TheAllUsersPage = () => {
+  let no = 1;
+  const [allUsers, setAllUsers] = useState([]);
+
+  const getAllUsersData = async () => {
+    try {
+      const response = await fetch(apiEndPointObj.getAllUsers.url, {
+        method: apiEndPointObj.getAllUsers.method,
+        credentials: "include",
+      });
+
+      const usersData = await response.json();
+      // console.log(usersData.totalUsers);
+      setAllUsers(usersData?.totalUsers);
+    } catch (error) {
+      console.error("Error from get all users: " + error.message);
+    }
+  };
+
+  useEffect(() => {
+    getAllUsersData();
+  }, []);
+
   return (
     <div className="font-Sen">
-      <table className="table table-fixed w-full">
+      <table className="table w-full">
         <thead className="bg-red-500 text-white">
           <tr>
             <th className="p-2">S.No</th>
@@ -17,25 +42,45 @@ const TheAllUsersPage = () => {
           </tr>
         </thead>
         <tbody className="bg-white">
-          <tr>
-            <td className="p-2 text-center">AAAA</td>
-            <td className="p-2 text-center">AAAA</td>
-            <td className="p-2 text-center">AAAA</td>
-            <td className="p-2 text-center">
-              <img
-                className="w-28 h-20 object-cover"
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEryBtSZWaHIWfwk2AaGI_x_wIQ9KIoP3ntw&s"
-                alt=""
-              />
-            </td>
-            <td className="p-2 text-center">AAAA</td>
-            <td className="p-2 text-center">AAAA</td>
-            <td className="p-2 text-center flex justify-center items-center">
-              <div className="bg-green-200 hover:bg-green-600 p-2 rounded-full hover:text-white transition-all cursor-pointer">
-                <MdEdit />
-              </div>
-            </td>
-          </tr>
+          {allUsers.length > 0 ? (
+            allUsers.map((users, index) => {
+              console.log(users);
+              const { _id, name, email, profilePic, role, createdAt } = users;
+              return (
+                <tr key={index}>
+                  <td className=" border-2 p-2 text-center">#{no++}</td>
+                  <td className=" border-2 p-2 text-left">{name}</td>
+                  <td className=" border-2 p-2 text-left">
+                    <Link>{email}</Link>
+                  </td>
+                  <td className=" border-2 p-2 text-center">
+                    <img
+                      className="w-28 h-40 object-cover mx-auto"
+                      src={profilePic?.url}
+                      alt=""
+                    />
+                  </td>
+                  <td className=" border-2 p-2 text-center capitalize">
+                    {role}
+                  </td>
+                  <td className=" border-2 p-2 text-center">
+                    {dayjs(createdAt).format("ddd, DD-MMM-YYYY")}
+                  </td>
+                  <td className=" border-2 p-2 text-center">
+                    <div className="bg-green-200 w-10 h-10 max-w-10 max-h-10 mx-auto hover:bg-green-600 p-2 flex justify-center items-center rounded-full hover:text-white transition-all cursor-pointer">
+                      <MdEdit />
+                    </div>
+                  </td>
+                </tr>
+              );
+            })
+          ) : (
+            <tr>
+              <td colSpan="7" className="text-center p-2">
+                Currently no users found.
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
