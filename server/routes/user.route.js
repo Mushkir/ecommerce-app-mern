@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  ChangeUserRoleAsAdmin,
   GetAllUsersData,
   LoginController,
   SignUpController,
@@ -19,5 +20,7 @@ router.get("/user-profile", userAuth, UserDetailController);
 router.get("/logout", userAuth, UserLogoutController);
 
 router.get("/get-all-users", userAuth, GetAllUsersData);
+
+router.put("/update-user-role/:id", ChangeUserRoleAsAdmin);
 
 export default router;

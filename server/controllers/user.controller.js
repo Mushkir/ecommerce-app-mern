@@ -124,3 +124,23 @@ export const GetAllUsersData = async (req, res) => {
     res.status(500).json({ message: error.message, error: true });
   }
 };
+
+// PUT Method
+// Change user role as Admin
+export const ChangeUserRoleAsAdmin = async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    const filter = { _id: userId };
+    const update = { role: "Admin" };
+
+    const updateUser = await User.findOneAndUpdate(filter, update);
+    res.status(200).json({
+      message: "User role updated as Admin",
+      error: false,
+      updatedUser: updateUser,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message, error: true });
+  }
+};

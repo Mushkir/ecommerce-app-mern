@@ -23,6 +23,10 @@ const apiEndPointObj = {
     url: `${API_URI}/get-all-users`,
     method: "GET",
   },
+  changeUserRole: {
+    url: `${API_URI}/update-user-role`,
+    method: "PUT",
+  },
 };
 
 export default apiEndPointObj;

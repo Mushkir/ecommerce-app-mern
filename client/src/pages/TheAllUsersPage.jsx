@@ -9,7 +9,7 @@ const TheAllUsersPage = () => {
   let no = 1;
   const [allUsers, setAllUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState({});
-  // console.log(selectedUser.name);
+  const [showModal, setShowModal] = useState(false);
 
   const getAllUsersData = async () => {
     try {
@@ -30,6 +30,10 @@ const TheAllUsersPage = () => {
     getAllUsersData();
   }, []);
 
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className="font-Sen">
       <h3 className="text-xl text-center mb-3 font-semibold text-red-500">
@@ -49,7 +53,7 @@ const TheAllUsersPage = () => {
         </thead>
         <tbody className="bg-white">
           {allUsers.length > 0 ? (
-            allUsers.map((users, index) => {
+            allUsers.map((users) => {
               // console.log(users);
               const { _id, name, email, profilePic, role, createdAt } = users;
               return (
@@ -67,7 +71,17 @@ const TheAllUsersPage = () => {
                     />
                   </td>
                   <td className=" border-2 p-2 text-center capitalize">
-                    {role}
+                    {role === "Admin" ? (
+                      <span className="bg-red-500 px-1.5 py-1 rounded-full text-white">
+                        {" "}
+                        {role}
+                      </span>
+                    ) : (
+                      <span className="bg-green-500 px-1.5 py-1 rounded-full text-white">
+                        {" "}
+                        {role}
+                      </span>
+                    )}
                   </td>
                   <td className=" border-2 p-2 text-center">
                     {dayjs(createdAt).format("ddd, DD-MMM-YYYY")}
@@ -76,6 +90,7 @@ const TheAllUsersPage = () => {
                     className=" border-2 p-2 text-center"
                     onClick={() => {
                       setSelectedUser(users);
+                      setShowModal(true);
                     }}
                   >
                     <div className="bg-green-200 w-10 h-10 max-w-10 max-h-10 mx-auto hover:bg-green-600 p-2 flex justify-center items-center rounded-full hover:text-white transition-all cursor-pointer">
@@ -96,7 +111,13 @@ const TheAllUsersPage = () => {
       </table>
 
       {/* Change user role pop-up modal */}
-      <TheChangeUserRole userData={selectedUser} />
+      {showModal && (
+        <TheChangeUserRole
+          userData={selectedUser}
+          onClose={closeModal}
+          refreshHomePage={getAllUsersData}
+        />
+      )}
     </div>
   );
 };
