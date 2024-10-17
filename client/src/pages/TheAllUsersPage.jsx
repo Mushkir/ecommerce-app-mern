@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import { MdEdit } from "react-icons/md";
 import apiEndPointObj from "../common/api_uri";
 import dayjs from "dayjs";
+import TheChangeUserRole from "../components/TheChangeUserRole";
 
 const TheAllUsersPage = () => {
   let no = 1;
   const [allUsers, setAllUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState({});
+  // console.log(selectedUser.name);
 
   const getAllUsersData = async () => {
     try {
@@ -72,7 +75,7 @@ const TheAllUsersPage = () => {
                   <td
                     className=" border-2 p-2 text-center"
                     onClick={() => {
-                      console.log(0);
+                      setSelectedUser(users);
                     }}
                   >
                     <div className="bg-green-200 w-10 h-10 max-w-10 max-h-10 mx-auto hover:bg-green-600 p-2 flex justify-center items-center rounded-full hover:text-white transition-all cursor-pointer">
@@ -91,6 +94,9 @@ const TheAllUsersPage = () => {
           )}
         </tbody>
       </table>
+
+      {/* Change user role pop-up modal */}
+      <TheChangeUserRole userData={selectedUser} />
     </div>
   );
 };
