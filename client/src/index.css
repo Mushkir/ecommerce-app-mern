@@ -9,5 +9,5 @@ body {
 }
 
 #sidebar a.active {
-  @apply bg-slate-200;
+  @apply bg-slate-200 font-semibold text-red-500;
 }

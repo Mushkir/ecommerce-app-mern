@@ -29,6 +29,9 @@ const TheAllUsersPage = () => {
 
   return (
     <div className="font-Sen">
+      <h3 className="text-xl text-center mb-3 font-semibold text-red-500">
+        All users detail...
+      </h3>
       <table className="table w-full">
         <thead className="bg-red-500 text-white">
           <tr>
@@ -44,14 +47,14 @@ const TheAllUsersPage = () => {
         <tbody className="bg-white">
           {allUsers.length > 0 ? (
             allUsers.map((users, index) => {
-              console.log(users);
+              // console.log(users);
               const { _id, name, email, profilePic, role, createdAt } = users;
               return (
-                <tr key={index}>
+                <tr key={_id}>
                   <td className=" border-2 p-2 text-center">#{no++}</td>
                   <td className=" border-2 p-2 text-left">{name}</td>
                   <td className=" border-2 p-2 text-left">
-                    <Link>{email}</Link>
+                    <Link to={`mailto:${email}`}>{email}</Link>
                   </td>
                   <td className=" border-2 p-2 text-center">
                     <img
@@ -66,7 +69,12 @@ const TheAllUsersPage = () => {
                   <td className=" border-2 p-2 text-center">
                     {dayjs(createdAt).format("ddd, DD-MMM-YYYY")}
                   </td>
-                  <td className=" border-2 p-2 text-center">
+                  <td
+                    className=" border-2 p-2 text-center"
+                    onClick={() => {
+                      console.log(0);
+                    }}
+                  >
                     <div className="bg-green-200 w-10 h-10 max-w-10 max-h-10 mx-auto hover:bg-green-600 p-2 flex justify-center items-center rounded-full hover:text-white transition-all cursor-pointer">
                       <MdEdit />
                     </div>
