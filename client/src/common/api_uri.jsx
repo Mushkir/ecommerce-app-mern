@@ -15,6 +15,10 @@ const apiEndPointObj = {
     url: `${API_URI}/user-profile`,
     method: "GET",
   },
+  logoutEndPoint: {
+    url: `${API_URI}/logout`,
+    method: "GET",
+  },
 };
 
 export default apiEndPointObj;

@@ -3,6 +3,7 @@ import TheLogo from "./TheLogo";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { UserLogout } from "../redux/user/userSlice";
+import apiEndPointObj from "../common/api_uri";
 
 const TheNavBar = () => {
   const navigate = useNavigate();
@@ -15,17 +16,24 @@ const TheNavBar = () => {
     navigate("/login");
   };
 
-  const proceedLogout = () => {
-    if (currentUser.currentUser) {
+  const proceedLogout = async () => {
+    const response = await fetch(apiEndPointObj.logoutEndPoint.url, {
+      method: apiEndPointObj.logoutEndPoint.method,
+      credentials: "include",
+    });
+
+    const respData = await response.json();
+    // console.log(respData);
+
+    if (currentUser?.currentUser && respData.error === false) {
       dispatch(UserLogout(currentUser));
       return;
     }
-
     navigate("/login");
   };
 
   return (
-    <header className="bg-white shadow-md h-16">
+    <header className="bg-white shadow-md h-16 font-Sen">
       <div className="h-full container mx-auto px-4 flex justify-between items-center">
         <div>
           <Link to={"/"}>
@@ -60,12 +68,12 @@ const TheNavBar = () => {
         {/* User icons */}
         <div className="flex items-center gap-5">
           {/* User */}
-          <div className="cursor-pointer">
-            {currentUser.currentUser ? (
+          <div className="cursor-pointer relative group flex justify-center">
+            {currentUser?.currentUser ? (
               <img
-                src={currentUser.currentUser.profilePic.url}
+                src={currentUser?.currentUser?.profilePic?.url}
                 className="w-10 h-10 object-cover rounded-full cursor-pointer"
-                alt={`${currentUser.currentUser.name}'s  profile picture`}
+                alt={`${currentUser?.currentUser?.name}'s  profile picture`}
                 onClick={() => navigate("/profile")}
               />
             ) : (
@@ -81,6 +89,13 @@ const TheNavBar = () => {
                 />
               </svg>
             )}
+
+            {/* Group menu for Admin panel */}
+            <div className=" absolute top-11 bg-white p-2 w-fit">
+              <nav className="whitespace-nowrap">
+                <Link>Admin Panel</Link>
+              </nav>
+            </div>
           </div>
 
           {/* Cart */}
@@ -104,7 +119,7 @@ const TheNavBar = () => {
 
           {/* Login */}
           <div>
-            {currentUser.currentUser ? (
+            {currentUser?.currentUser ? (
               <button
                 className="px-5 py-1.5 text-white rounded-full bg-red-500 hover:bg-red-600"
                 onClick={proceedLogout}

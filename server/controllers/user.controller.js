@@ -100,3 +100,16 @@ export const UserDetailController = async (req, res) => {
     res.status(500).json({ message: error.message, error: true });
   }
 };
+
+// GET Method
+// User Logout
+export const UserLogoutController = async (req, res) => {
+  try {
+    res.status(202).clearCookie("token").json({
+      message: "user logged-out successfully",
+      error: false,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message, error: true });
+  }
+};
