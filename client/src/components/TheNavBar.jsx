@@ -8,7 +8,7 @@ import apiEndPointObj from "../common/api_uri";
 const TheNavBar = () => {
   const navigate = useNavigate();
 
-  const currentUser = useSelector((state) => state.user);
+  const currentUser = useSelector((state) => state?.user);
   const dispatch = useDispatch();
   // console.log(currentUser.currentUser.name);
   const [openMenuGroup, setOpenMenuGroup] = useState(false);
@@ -26,8 +26,11 @@ const TheNavBar = () => {
     const respData = await response.json();
     // console.log(respData);
 
-    if (currentUser?.currentUser && respData.error === false) {
-      dispatch(UserLogout(currentUser));
+    if (respData.error === false) {
+      if (currentUser?.currentUser) {
+        dispatch(UserLogout(currentUser));
+        return;
+      }
       return;
     }
     navigate("/login");
