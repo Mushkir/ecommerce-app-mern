@@ -131,15 +131,27 @@ export const ChangeUserRoleAsAdmin = async (req, res) => {
   const userId = req.params.id;
 
   try {
-    const filter = { _id: userId };
-    const update = { role: "Admin" };
+    const user = await User.findById({ _id: userId });
 
-    const updateUser = await User.findOneAndUpdate(filter, update);
-    res.status(200).json({
-      message: "User role updated as Admin",
-      error: false,
-      updatedUser: updateUser,
-    });
+    if (user?.role === "admin") {
+      const filter = { _id: userId };
+      const update = { role: "general" };
+
+      await User.findOneAndUpdate(filter, update);
+      res.status(200).json({
+        message: "User role updated as General",
+        error: false,
+      });
+    } else {
+      const filter = { _id: userId };
+      const update = { role: "admin" };
+
+      await User.findOneAndUpdate(filter, update);
+      res.status(200).json({
+        message: "User role updated as Admin",
+        error: false,
+      });
+    }
   } catch (error) {
     res.status(500).json({ message: error.message, error: true });
   }

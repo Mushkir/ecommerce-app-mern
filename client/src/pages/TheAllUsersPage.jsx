@@ -71,7 +71,7 @@ const TheAllUsersPage = () => {
                     />
                   </td>
                   <td className=" border-2 p-2 text-center capitalize">
-                    {role === "Admin" ? (
+                    {role === "admin" ? (
                       <span className="bg-red-500 px-1.5 py-1 rounded-full text-white">
                         {" "}
                         {role}

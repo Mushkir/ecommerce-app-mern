@@ -29,9 +29,7 @@ const TheNavBar = () => {
     if (respData.error === false) {
       if (currentUser?.currentUser) {
         dispatch(UserLogout(currentUser));
-        return;
       }
-      return;
     }
     navigate("/login");
   };
