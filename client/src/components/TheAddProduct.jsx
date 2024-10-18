@@ -5,6 +5,7 @@ import TheSelectInput from "./TheSelectInput";
 import productCategory from "../helpers/productCategory";
 import { IoMdCloudUpload } from "react-icons/io";
 import TheTextArea from "./TheTextArea";
+import uploadProductImage from "../utils/cloudinaryProductImgUpload";
 
 const TheAddProduct = () => {
   const [formData, setFormData] = useState({
@@ -14,7 +15,12 @@ const TheAddProduct = () => {
     price: "",
     sellingPrice: "",
     description: "",
+    productImgs: [],
   });
+
+  const [productImgName, setProductImgName] = useState("");
+
+  // const [productImgArray, setProductImgArray] = useState([]);
 
   const fileInputRef = useRef(null);
 
@@ -32,8 +38,17 @@ const TheAddProduct = () => {
     fileInputRef.current?.click();
   };
 
-  const uploadImage = (e) => {
-    // console.log(e.target.files[0]);
+  const uploadImage = async (e) => {
+    console.log(e.target.files[0]);
+    const imgFile = e.target.files[0];
+
+    const imgData = await uploadProductImage(imgFile);
+    setProductImgName(imgFile.name);
+    setFormData({
+      ...formData,
+      productImgs: [...formData.productImgs, imgData.secure_url],
+    });
+    // console.log(imgData.secure_url);
   };
 
   console.log(formData);
@@ -89,23 +104,53 @@ const TheAddProduct = () => {
                 Product image
               </label>
               <div
-                className="bg-slate-100 rounded p-2 flex flex-col justify-center items-center h-32"
+                className="bg-slate-100 rounded p-2 flex flex-col justify-center items-center h-32 cursor-pointer"
                 onClick={handleImageUpload}
               >
-                <span className="text-2xl">
+                <span className="text-4xl">
                   <IoMdCloudUpload />
                 </span>
+                {productImgName ? (
+                  <small className="text-green-600 font-semibold">
+                    {productImgName} has been uploaded successfully.
+                  </small>
+                ) : (
+                  <small className="text-gray-600 font-semibold">
+                    Upload product image.
+                  </small>
+                )}
+
                 <input
                   id="productImg"
                   ref={fileInputRef}
+                  className="hidden"
                   type="file"
                   onChange={uploadImage}
                 />
               </div>
-              <small className="text-red-500 block text-center">
-                {" "}
-                <strong>*Please upload product images.</strong>{" "}
-              </small>
+
+              {/* If img length is 0, then it will show "*Please upload product images." warning message, otherwise, it
+              will preview all the uploaded imgs
+              */}
+              {!productImgName ? (
+                <small className="text-red-500 block text-center">
+                  {" "}
+                  <strong>*Please upload product images.</strong>{" "}
+                </small>
+              ) : (
+                <div className="flex justify-center flex-wrap items-center gap-3">
+                  {formData?.productImgs.map((imageUrl, index) => {
+                    return (
+                      <img
+                        key={index}
+                        src={imageUrl}
+                        alt={`${formData?.productName}'s images`}
+                        className="w-full max-w-20 h-20 object-cover rounded-md"
+                      />
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
             {/* Price */}
@@ -142,3 +187,10 @@ const TheAddProduct = () => {
 };
 
 export default TheAddProduct;
+
+{
+  /* <small className="text-green-600 block text-center">
+{" "}
+<strong>{productImgName}</strong>{" "}
+</small> */
+}
