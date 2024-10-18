@@ -3,7 +3,6 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import cloudinary from "../utils/cloudinary.config.js";
-// import createSecretToken from "../utils/tokenGeneration.js";
 
 dotenv.config();
 
@@ -152,6 +151,23 @@ export const ChangeUserRoleAsAdmin = async (req, res) => {
         error: false,
       });
     }
+  } catch (error) {
+    res.status(500).json({ message: error.message, error: true });
+  }
+};
+
+// PUT Method
+// Update user data
+export const UpdateUserData = async (req, res) => {
+  const userId = req.params.id;
+  const { name, email } = req.body;
+
+  try {
+    const filter = { _id: userId };
+    const update = { name, email };
+
+    await User.findOneAndUpdate(filter, update);
+    res.status(200).json({ message: "User data updated", error: false });
   } catch (error) {
     res.status(500).json({ message: error.message, error: true });
   }

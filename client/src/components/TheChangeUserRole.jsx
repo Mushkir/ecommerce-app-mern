@@ -14,10 +14,15 @@ const TheChangeUserRole = ({ userData, onClose, refreshHomePage }) => {
 
   const [userRole, setUserRole] = useState(userData?.role || "");
 
+  const [updateSuccess, setUpdateSuccess] = useState(false);
+
+  const [updateSuccessMsg, setUpdateSuccessMsg] = useState("");
+
   const handleOnChange = (e) => {
     setSelectedUserData({ ...selectedUserData, [e.target.id]: e.target.value });
   };
 
+  // Change user role function
   const handleRoleChange = async (id) => {
     try {
       const response = await fetch(
@@ -52,6 +57,35 @@ const TheChangeUserRole = ({ userData, onClose, refreshHomePage }) => {
     // });
   }, [userData]);
 
+  // Update user details
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch(
+      apiEndPointObj.updateUserDetailByAdmin.url + `/${_id}`,
+      {
+        method: apiEndPointObj.updateUserDetailByAdmin.method,
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(selectedUserData),
+      }
+    );
+
+    const data = await response.json();
+    if (data.error === false) {
+      setUpdateSuccess(true);
+      setUpdateSuccessMsg(`${data.message} succssfully...`);
+
+      setTimeout(() => {
+        setUpdateSuccess(false);
+      }, 3000);
+      return;
+    }
+    console.log(data);
+  };
+
   return (
     <div className="fixed w-full h-full top-0 bottom-0 left-0 right-0 z-40 flex justify-center items-center bg-slate-200 bg-opacity-50">
       <div className="bg-white w-full max-w-md mx-auto rounded-md overflow-hidden">
@@ -70,7 +104,7 @@ const TheChangeUserRole = ({ userData, onClose, refreshHomePage }) => {
           </div>
         </div>
 
-        <form action="" className="p-5" method="post">
+        <form action="" className="p-5" method="post" onSubmit={handleSubmit}>
           {/* Profile img */}
           <div className="bg-red-500 w-40 max-w-40 h-40 max-h-40 rounded-full mx-auto p-1 mt-3">
             <img
@@ -94,6 +128,13 @@ const TheChangeUserRole = ({ userData, onClose, refreshHomePage }) => {
               {userRole || "Guest"}
             </span>
           </div>
+
+          {updateSuccess && (
+            <small className=" text-green-600 block text-center mt-5">
+              {" "}
+              <strong>{updateSuccessMsg}</strong>{" "}
+            </small>
+          )}
 
           {/* Input Components */}
           <div className="mt-5 mb-5">

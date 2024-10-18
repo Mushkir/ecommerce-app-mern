@@ -27,6 +27,10 @@ const apiEndPointObj = {
     url: `${API_URI}/update-user-role`,
     method: "PUT",
   },
+  updateUserDetailByAdmin: {
+    url: `${API_URI}/update-user`,
+    method: "PUT",
+  },
 };
 
 export default apiEndPointObj;

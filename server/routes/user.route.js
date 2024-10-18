@@ -4,6 +4,7 @@ import {
   GetAllUsersData,
   LoginController,
   SignUpController,
+  UpdateUserData,
   UserDetailController,
   UserLogoutController,
 } from "../controllers/user.controller.js";
@@ -22,5 +23,7 @@ router.get("/logout", userAuth, UserLogoutController);
 router.get("/get-all-users", userAuth, GetAllUsersData);
 
 router.put("/update-user-role/:id", ChangeUserRoleAsAdmin);
+
+router.put("/update-user/:id", userAuth, UpdateUserData);
 
 export default router;
