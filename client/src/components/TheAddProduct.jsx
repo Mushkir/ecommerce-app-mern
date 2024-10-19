@@ -21,7 +21,7 @@ const TheAddProduct = ({ onClose }) => {
 
   const [productImgName, setProductImgName] = useState("");
 
-  // const [productImgArray, setProductImgArray] = useState([]);
+  const [error, setError] = useState("");
 
   const fileInputRef = useRef(null);
 
@@ -52,7 +52,26 @@ const TheAddProduct = ({ onClose }) => {
     // console.log(imgData.secure_url);
   };
 
-  // console.log(formData);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Validation
+    if (
+      !formData?.productName ||
+      !formData?.brandName ||
+      !formData.category ||
+      !formData.price ||
+      !formData.sellingPrice ||
+      !formData.description ||
+      !formData.productImgs.length
+    ) {
+      setError("Please fill all the fields...");
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+      return;
+    }
+  };
 
   return (
     <div className="fixed w-full h-full left-0 right-0 top-0 bottom-0 flex justify-center items-center bg-slate-200 bg-opacity-60">
@@ -69,8 +88,14 @@ const TheAddProduct = ({ onClose }) => {
           </div>
         </div>
 
+        {error && (
+          <small className="text-red-500 block text-center mt-5">
+            <strong> {error}</strong>
+          </small>
+        )}
+
         <div className="overflow-y-auto h-[calc(100%-50px)]">
-          <form method="post" className="p-5">
+          <form method="post" className="p-5" onSubmit={handleSubmit}>
             {/* Product name */}
             <TheInput
               id="productName"
