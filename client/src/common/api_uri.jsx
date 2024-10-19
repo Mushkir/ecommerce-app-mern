@@ -31,6 +31,10 @@ const apiEndPointObj = {
     url: `${API_URI}/update-user`,
     method: "PUT",
   },
+  addProduct: {
+    url: `${API_URI}/add-product`,
+    method: "POST",
+  },
 };
 
 export default apiEndPointObj;

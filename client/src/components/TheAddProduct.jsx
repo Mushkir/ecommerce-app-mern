@@ -7,6 +7,7 @@ import { IoMdCloudUpload } from "react-icons/io";
 import TheTextArea from "./TheTextArea";
 import uploadProductImage from "../utils/cloudinaryProductImgUpload";
 import PropTypes from "prop-types";
+import apiEndPointObj from "../common/api_uri";
 
 const TheAddProduct = ({ onClose }) => {
   const [formData, setFormData] = useState({
@@ -52,7 +53,7 @@ const TheAddProduct = ({ onClose }) => {
     // console.log(imgData.secure_url);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validation
@@ -70,6 +71,22 @@ const TheAddProduct = ({ onClose }) => {
         setError("");
       }, 5000);
       return;
+    }
+
+    try {
+      const response = await fetch(apiEndPointObj.addProduct.url, {
+        method: apiEndPointObj.addProduct.method,
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error("Error from Add product form: " + error.message);
     }
   };
 
