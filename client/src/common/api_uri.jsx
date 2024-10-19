@@ -32,7 +32,7 @@ const apiEndPointObj = {
     method: "PUT",
   },
   addProduct: {
-    url: `${API_URI}/add-product`,
+    url: `${API_URI}/product/add-product`,
     method: "POST",
   },
 };

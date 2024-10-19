@@ -24,6 +24,8 @@ const TheAddProduct = ({ onClose }) => {
 
   const [error, setError] = useState("");
 
+  const [successMsg, setSuccessMsg] = useState("");
+
   const fileInputRef = useRef(null);
 
   const handleChange = (e) => {
@@ -85,7 +87,24 @@ const TheAddProduct = ({ onClose }) => {
 
       const data = await response.json();
       console.log(data);
+      if (data.error === false) {
+        setSuccessMsg(data.message);
+        setFormData({
+          productName: "",
+          brandName: "",
+          category: "",
+          price: "",
+          sellingPrice: "",
+          description: "",
+          productImgs: [],
+        });
+
+        setTimeout(() => {
+          setSuccessMsg("");
+        }, 5000);
+      }
     } catch (error) {
+      setSuccessMsg(error.message);
       console.error("Error from Add product form: " + error.message);
     }
   };
@@ -108,6 +127,12 @@ const TheAddProduct = ({ onClose }) => {
         {error && (
           <small className="text-red-500 block text-center mt-5">
             <strong> {error}</strong>
+          </small>
+        )}
+
+        {successMsg && (
+          <small className="text-green-500 block text-center mt-5">
+            <strong> {successMsg}</strong>
           </small>
         )}
 

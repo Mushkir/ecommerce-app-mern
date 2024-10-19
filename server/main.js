@@ -2,9 +2,9 @@ import express from "express";
 import cors from "cors";
 import router from "./routes/user.route.js";
 import connectDB from "./lib/db.js";
-import productRouter from "./routes/product.route.js";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
+import productRouter from "./routes/product.route.js";
 // import userAuth from "./middlewares/userAuth.middeware.js";
 
 dotenv.config();
@@ -22,6 +22,7 @@ app.use(express.urlencoded({ limit: "50mb", extended: true })); // Set limit for
 app.use(cookieParser());
 
 app.use("/", router);
+app.use("/product", productRouter);
 // app.use("/", productRouter);
 
 app.listen(PORT, () => {
