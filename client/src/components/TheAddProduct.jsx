@@ -6,8 +6,9 @@ import productCategory from "../helpers/productCategory";
 import { IoMdCloudUpload } from "react-icons/io";
 import TheTextArea from "./TheTextArea";
 import uploadProductImage from "../utils/cloudinaryProductImgUpload";
+import PropTypes from "prop-types";
 
-const TheAddProduct = () => {
+const TheAddProduct = ({ onClose }) => {
   const [formData, setFormData] = useState({
     productName: "",
     brandName: "",
@@ -51,7 +52,7 @@ const TheAddProduct = () => {
     // console.log(imgData.secure_url);
   };
 
-  console.log(formData);
+  // console.log(formData);
 
   return (
     <div className="fixed w-full h-full left-0 right-0 top-0 bottom-0 flex justify-center items-center bg-slate-200 bg-opacity-60">
@@ -60,7 +61,10 @@ const TheAddProduct = () => {
           <h3 className="text-xl font-semibold text-white">Upload product</h3>
 
           {/* Close Icon */}
-          <div className="text-xl text-white hover:bg-white hover:text-red-500 rounded-full cursor-pointer transition-all">
+          <div
+            onClick={onClose}
+            className="text-xl text-white hover:bg-white hover:text-red-500 rounded-full cursor-pointer transition-all"
+          >
             <IoCloseSharp />
           </div>
         </div>
@@ -179,11 +183,19 @@ const TheAddProduct = () => {
               onChange={handleChange}
               value={formData.description}
             />
+
+            <button className="bg-red-500 px-5 py-2 rounded w-full mb-5 mt-3 text-white hover:bg-red-600 transition-all">
+              Upload Product
+            </button>
           </form>
         </div>
       </div>
     </div>
   );
+};
+
+TheAddProduct.propTypes = {
+  onClose: PropTypes.func,
 };
 
 export default TheAddProduct;
