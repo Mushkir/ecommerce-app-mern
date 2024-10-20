@@ -9,6 +9,7 @@ import uploadProductImage from "../utils/cloudinaryProductImgUpload";
 import PropTypes from "prop-types";
 import apiEndPointObj from "../common/api_uri";
 import ThePreviewUploadedImg from "./ThePreviewUploadedImg";
+import { MdDelete } from "react-icons/md";
 
 const TheAddProduct = ({ onClose }) => {
   const [formData, setFormData] = useState({
@@ -119,6 +120,17 @@ const TheAddProduct = ({ onClose }) => {
     setPreviewImg(false);
   };
 
+  const handleRemoveImgs = (imageIndex) => {
+    // console.log(imageIndex);
+    formData.productImgs.splice(imageIndex, 1);
+    setFormData({
+      ...formData,
+      productImgs: [...formData.productImgs],
+    });
+  };
+
+  // console.log(formData);
+
   return (
     <div className="fixed w-full h-full left-0 right-0 top-0 bottom-0 flex justify-center items-center bg-slate-200 bg-opacity-60">
       <div className="bg-white w-full h-full max-w-[50%] max-h-[80%] rounded-md overflow-hidden">
@@ -222,16 +234,24 @@ const TheAddProduct = ({ onClose }) => {
                 <div className="flex justify-center flex-wrap items-center gap-3">
                   {formData?.productImgs.map((imageUrl, index) => {
                     return (
-                      <img
-                        key={index}
-                        src={imageUrl}
-                        onClick={() => {
-                          setPreviewImg(true);
-                          setSelectedImg(imageUrl);
-                        }}
-                        alt={`${formData?.productName}'s images`}
-                        className="w-full max-w-20 h-20 object-cover rounded-md cursor-pointer"
-                      />
+                      <div key={index} className="relative">
+                        <img
+                          src={imageUrl}
+                          onClick={() => {
+                            setPreviewImg(true);
+                            setSelectedImg(imageUrl);
+                          }}
+                          alt={`${formData?.productName}'s images`}
+                          className="w-full max-w-20 h-20 object-cover rounded-md cursor-pointer"
+                        />
+                        {/* Delete icon */}
+                        <div
+                          className="bg-red-500 absolute ml-auto text-white top-16 right-0 rounded-br-md hover:bg-red-600 cursor-pointer"
+                          onClick={() => handleRemoveImgs(index)}
+                        >
+                          <MdDelete />
+                        </div>
+                      </div>
                     );
                   })}
                 </div>
