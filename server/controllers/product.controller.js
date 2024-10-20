@@ -1,5 +1,7 @@
 import Product from "../models/Product.js";
 
+// POST Method
+// Add new product by admin
 export const CreateProduct = async (req, res) => {
   const {
     productName,

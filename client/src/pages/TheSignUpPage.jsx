@@ -82,7 +82,7 @@ const TheSignUpPage = () => {
   };
 
   return (
-    <div className="bg-white w-full max-w-md mx-auto mt-10 p-5 pb-6 rounded-md">
+    <div className="bg-white w-full max-w-md mx-auto mt-10 p-5 pb-6 rounded-md font-Sen">
       <div className="relative">
         <div className="w-20 h-20 mx-auto rounded-full">
           <img

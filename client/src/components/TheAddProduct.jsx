@@ -8,6 +8,7 @@ import TheTextArea from "./TheTextArea";
 import uploadProductImage from "../utils/cloudinaryProductImgUpload";
 import PropTypes from "prop-types";
 import apiEndPointObj from "../common/api_uri";
+import ThePreviewUploadedImg from "./ThePreviewUploadedImg";
 
 const TheAddProduct = ({ onClose }) => {
   const [formData, setFormData] = useState({
@@ -25,6 +26,10 @@ const TheAddProduct = ({ onClose }) => {
   const [error, setError] = useState("");
 
   const [successMsg, setSuccessMsg] = useState("");
+
+  const [previewImg, setPreviewImg] = useState(false);
+
+  const [selectedImg, setSelectedImg] = useState("");
 
   const fileInputRef = useRef(null);
 
@@ -98,6 +103,7 @@ const TheAddProduct = ({ onClose }) => {
           description: "",
           productImgs: [],
         });
+        setProductImgName("");
 
         setTimeout(() => {
           setSuccessMsg("");
@@ -107,6 +113,10 @@ const TheAddProduct = ({ onClose }) => {
       setSuccessMsg(error.message);
       console.error("Error from Add product form: " + error.message);
     }
+  };
+
+  const closeImgPreview = () => {
+    setPreviewImg(false);
   };
 
   return (
@@ -215,8 +225,12 @@ const TheAddProduct = ({ onClose }) => {
                       <img
                         key={index}
                         src={imageUrl}
+                        onClick={() => {
+                          setPreviewImg(true);
+                          setSelectedImg(imageUrl);
+                        }}
                         alt={`${formData?.productName}'s images`}
-                        className="w-full max-w-20 h-20 object-cover rounded-md"
+                        className="w-full max-w-20 h-20 object-cover rounded-md cursor-pointer"
                       />
                     );
                   })}
@@ -257,6 +271,14 @@ const TheAddProduct = ({ onClose }) => {
           </form>
         </div>
       </div>
+
+      {previewImg && (
+        <ThePreviewUploadedImg
+          onClose={closeImgPreview}
+          imgUrl={selectedImg}
+          productImgName={productImgName}
+        />
+      )}
     </div>
   );
 };
@@ -266,10 +288,3 @@ TheAddProduct.propTypes = {
 };
 
 export default TheAddProduct;
-
-{
-  /* <small className="text-green-600 block text-center">
-{" "}
-<strong>{productImgName}</strong>{" "}
-</small> */
-}
