@@ -4,6 +4,8 @@ import apiEndPointObj from "../common/api_uri";
 
 const TheAllProductsPage = () => {
   const [openProductUploadForm, setOpenProductUploadForm] = useState(false);
+  const [allProducts, setAllProducts] = useState([]);
+  const [showMore, setShowMore] = useState(false);
 
   const showProductUploadForm = () => {
     setOpenProductUploadForm(true);
@@ -22,11 +24,15 @@ const TheAllProductsPage = () => {
       });
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
+      if (data.error === false) {
+        setAllProducts(data.allProducts);
+      }
     } catch (error) {
       console.error(error.message);
     }
   };
+  // console.log(allProducts);
 
   useEffect(() => {
     fetchAllProducts();
@@ -49,85 +55,41 @@ const TheAllProductsPage = () => {
 
         {/* All Products body */}
         <div className="mt-5 flex justify-center items-center flex-wrap gap-5">
-          <div className="card bg-base-100 w-72 shadow-xl rounded-lg">
-            <figure>
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body">
-              <h2 className="card-title">Shoes!</h2>
-              <p>If a dog chews shoes whose shoes does he choose?</p>
-              <div className="card-actions justify-end">
-                <button className="btn btn-primary">View item</button>
-              </div>
-            </div>
-          </div>
+          {allProducts.map((product) => {
+            console.log(product);
 
-          <div className="card bg-base-100 w-72 shadow-xl rounded-lg">
-            <figure>
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body">
-              <h2 className="card-title">Shoes!</h2>
-              <p>If a dog chews shoes whose shoes does he choose?</p>
-              <div className="card-actions justify-end">
-                <button className="btn btn-primary">View item</button>
+            return (
+              <div
+                className="card bg-base-100 w-72 max-w-72 shadow-xl rounded-lg"
+                key={product._id}
+              >
+                <figure>
+                  <img
+                    className="w-full h-48 object-cover"
+                    src={product.productImgs[0]}
+                    alt={`${product.productName}'s image`}
+                  />
+                </figure>
+                <div className="card-body">
+                  <h2 className="card-title">
+                    {/* {product.productName}! */}
+                    {showMore
+                      ? product.productName
+                      : `${product.productName.substring(0, 50)}`}
+                  </h2>
+                  <p>{product.description}</p>
+                  <div className="card-actions justify-end">
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => setShowMore(!showMore)}
+                    >
+                      View item
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-
-          <div className="card bg-base-100 w-72 shadow-xl rounded-lg">
-            <figure>
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body">
-              <h2 className="card-title">Shoes!</h2>
-              <p>If a dog chews shoes whose shoes does he choose?</p>
-              <div className="card-actions justify-end">
-                <button className="btn btn-primary">View item</button>
-              </div>
-            </div>
-          </div>
-
-          <div className="card bg-base-100 w-72 shadow-xl rounded-lg">
-            <figure>
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body">
-              <h2 className="card-title">Shoes!</h2>
-              <p>If a dog chews shoes whose shoes does he choose?</p>
-              <div className="card-actions justify-end">
-                <button className="btn btn-primary">View item</button>
-              </div>
-            </div>
-          </div>
-
-          <div className="card bg-base-100 w-72 shadow-xl rounded-lg">
-            <figure>
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body">
-              <h2 className="card-title">Shoes!</h2>
-              <p>If a dog chews shoes whose shoes does he choose?</p>
-              <div className="card-actions justify-end">
-                <button className="btn btn-primary">View item</button>
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
 
