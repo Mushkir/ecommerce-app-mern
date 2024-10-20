@@ -42,13 +42,13 @@ const TheAllUsersPage = () => {
       <table className="table w-full">
         <thead className="bg-red-500 text-white">
           <tr>
-            <th className="p-2">S.No</th>
-            <th className="p-2">Name</th>
-            <th className="p-2">Email</th>
-            <th className="p-2">Image</th>
-            <th className="p-2">Role</th>
-            <th className="p-2">Created Date</th>
-            <th className="p-2">Action</th>
+            <th className="p-3 text-center text-md">S.No</th>
+            <th className="p-3 text-center text-md">Name</th>
+            <th className="p-3 text-center text-md">Email</th>
+            <th className="p-3 text-center text-md">Image</th>
+            <th className="p-3 text-center text-md">Role</th>
+            <th className="p-3 text-center text-md">Created Date</th>
+            <th className="p-3 text-center text-md">Action</th>
           </tr>
         </thead>
         <tbody className="bg-white">
@@ -58,9 +58,11 @@ const TheAllUsersPage = () => {
               const { _id, name, email, profilePic, role, createdAt } = users;
               return (
                 <tr key={_id}>
-                  <td className=" border-2 p-2 text-center">#{no++}</td>
-                  <td className=" border-2 p-2 text-left">{name}</td>
-                  <td className=" border-2 p-2 text-left">
+                  <td className=" border-2 p-2 text-center text-black">
+                    #{no++}
+                  </td>
+                  <td className=" border-2 p-2 text-left text-black">{name}</td>
+                  <td className=" border-2 p-2 text-left text-black">
                     <Link to={`mailto:${email}`}>{email}</Link>
                   </td>
                   <td className=" border-2 p-2 text-center">
@@ -70,7 +72,7 @@ const TheAllUsersPage = () => {
                       alt=""
                     />
                   </td>
-                  <td className=" border-2 p-2 text-center capitalize">
+                  <td className=" border-2 p-2 text-center capitalize text-black">
                     {role === "admin" ? (
                       <span className="bg-red-500 px-1.5 py-1 rounded-full text-white">
                         {" "}
@@ -83,17 +85,17 @@ const TheAllUsersPage = () => {
                       </span>
                     )}
                   </td>
-                  <td className=" border-2 p-2 text-center">
+                  <td className=" border-2 p-2 text-center text-black">
                     {dayjs(createdAt).format("ddd, DD-MMM-YYYY")}
                   </td>
                   <td
-                    className=" border-2 p-2 text-center"
+                    className=" border-2 p-2 text-center text-black"
                     onClick={() => {
                       setSelectedUser(users);
                       setShowModal(true);
                     }}
                   >
-                    <div className="bg-green-200 w-10 h-10 max-w-10 max-h-10 mx-auto hover:bg-green-600 p-2 flex justify-center items-center rounded-full hover:text-white transition-all cursor-pointer">
+                    <div className="bg-green-200 w-10 h-10 max-w-10 max-h-10 mx-auto hover:bg-green-600 p-2 flex justify-center items-center rounded-full hover:text-white transition-all cursor-pointer text-black">
                       <MdEdit />
                     </div>
                   </td>

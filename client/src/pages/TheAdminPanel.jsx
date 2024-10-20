@@ -31,7 +31,10 @@ const TheAdminPanel = () => {
           )}
           <small className="block mt-2">
             {" "}
-            <strong className="capitalize"> {currentUser?.role} </strong>{" "}
+            <strong className="capitalize text-black">
+              {" "}
+              {currentUser?.role}{" "}
+            </strong>{" "}
           </small>
         </div>
 

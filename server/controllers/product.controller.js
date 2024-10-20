@@ -32,3 +32,5 @@ export const CreateProduct = async (req, res) => {
     res.status(500).json({ message: error.message, error: true });
   }
 };
+
+export const readProducts = async (req, res) => {};

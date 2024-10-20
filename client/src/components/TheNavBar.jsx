@@ -49,7 +49,7 @@ const TheNavBar = () => {
             type="text"
             name="search-product"
             id="search-product"
-            className="w-full outline-none"
+            className="w-full outline-none "
             placeholder="Search your products..."
           />
           <div className="text-lg min-w-[50px] flex justify-center items-center h-8 rounded-r-full bg-red-500 text-white">
