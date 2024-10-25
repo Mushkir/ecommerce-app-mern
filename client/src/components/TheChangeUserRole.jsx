@@ -12,7 +12,8 @@ const TheChangeUserRole = ({ userData, onClose, refreshHomePage }) => {
     email: userData?.email || "",
   });
 
-  const [userRole, setUserRole] = useState(userData?.role || "");
+  const [userRole, setUserRole] = useState(userData?.role);
+  console.log(userRole);
 
   const [updateSuccess, setUpdateSuccess] = useState(false);
 
@@ -51,10 +52,10 @@ const TheChangeUserRole = ({ userData, onClose, refreshHomePage }) => {
 
   useEffect(() => {
     setUserRole(userData?.role || "");
-    // setSelectedUserData({
-    //   name: userData?.name || "",
-    //   email: userData?.email || "",
-    // });
+    setSelectedUserData({
+      name: userData?.name || "",
+      email: userData?.email || "",
+    });
   }, [userData]);
 
   // Update user details
@@ -125,7 +126,7 @@ const TheChangeUserRole = ({ userData, onClose, refreshHomePage }) => {
                 userRole === "admin" ? "red-500" : "green-600"
               } px-2 rounded-full text-white capitalize`}
             >
-              {userRole || "Guest"}
+              {userRole}
             </span>
           </div>
 
