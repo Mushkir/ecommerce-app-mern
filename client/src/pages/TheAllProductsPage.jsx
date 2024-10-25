@@ -5,7 +5,6 @@ import TheProductCard from "../components/TheProductCard";
 import TheListSkeleton from "../components/TheListSkeleton";
 
 const TheAllProductsPage = () => {
-  let no = 1;
   const [openProductUploadForm, setOpenProductUploadForm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [allProducts, setAllProducts] = useState([]);

@@ -5,6 +5,9 @@ import TheEditProduct from "../components/TheEditProduct";
 
 const TheProductCard = ({ product }) => {
   const [openEditProduct, setOpenEditProduct] = useState(false);
+  const [productData, setProductData] = useState({});
+
+  // console.log(productData);
 
   const onClose = () => {
     setOpenEditProduct(false);
@@ -37,6 +40,7 @@ const TheProductCard = ({ product }) => {
               className="bg-red-300 transition-all hover:bg-red-500 hover:text-white p-3 rounded-full"
               onClick={() => {
                 setOpenEditProduct(true);
+                setProductData(product);
               }}
             >
               <MdEdit />
@@ -46,7 +50,9 @@ const TheProductCard = ({ product }) => {
       </div>
 
       {/* Edit Product Component */}
-      {openEditProduct && <TheEditProduct onClose={onClose} />}
+      {openEditProduct && (
+        <TheEditProduct onClose={onClose} productData={productData} />
+      )}
     </div>
   );
 };

@@ -32,12 +32,12 @@ const TheSelectInput = ({
 };
 
 TheSelectInput.propTypes = {
-  label: PropTypes.string.isRequired,
-  selectElementLabel: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.object).isRequired,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  selectElementLabel: PropTypes.string,
+  options: PropTypes.arrayOf(PropTypes.object),
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  id: PropTypes.string,
 };
 
 export default TheSelectInput;
