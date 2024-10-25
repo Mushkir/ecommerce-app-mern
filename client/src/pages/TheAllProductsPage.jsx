@@ -5,6 +5,7 @@ import TheProductCard from "../components/TheProductCard";
 import TheListSkeleton from "../components/TheListSkeleton";
 
 const TheAllProductsPage = () => {
+  let no = 1;
   const [openProductUploadForm, setOpenProductUploadForm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [allProducts, setAllProducts] = useState([]);
@@ -60,7 +61,36 @@ const TheAllProductsPage = () => {
         {/* All Products body */}
         <div className="mt-5 flex justify-center items-center flex-wrap gap-5 overflow-y-scroll h-[calc(100vh-130px)] pb-5">
           {loading ? (
-            <TheListSkeleton listsToRender={9} />
+            <TheListSkeleton
+              listsToRender={9}
+              content={
+                <div className="card bg-base-100 w-72 max-w-72 shadow-xl rounded-lg p-5">
+                  <figure className="w-full h-48 bg-slate-200 rounded animate-pulse">
+                    <img
+                    // className="w-full h-48 object-cover"
+                    // src={product.productImgs[0]}
+                    // alt={`${product.productName}'s image`}
+                    />
+                  </figure>
+                  <div className="grid gap-4">
+                    <h2 className="card-title bg-slate-200 p-2 mt-2 rounded animate-pulse">
+                      {/* {product.productName.substring(0, 18)}... */}
+                    </h2>
+
+                    <p className=" bg-slate-200 p-2 rounded animate-pulse">
+                      {/* {product.description.length < 100
+                    ? product.description
+                    : product.description.substring(0, 100) + "..."} */}
+                    </p>
+                    <div className="flex justify-end ">
+                      <button className="bg-slate-200 p-3 rounded-full animate-pulse">
+                        {/* <MdEdit />/ */}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              }
+            />
           ) : allProducts.length > 0 ? (
             allProducts.map((product, index) => {
               // console.log(product);
