@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { MdEdit } from "react-icons/md";
 import TheEditProduct from "../components/TheEditProduct";
+import currencyFormat from "../utils/currencyFormat";
 
 const TheProductCard = ({ product, fetchAllProducts }) => {
   const [openEditProduct, setOpenEditProduct] = useState(false);
@@ -35,7 +36,10 @@ const TheProductCard = ({ product, fetchAllProducts }) => {
               ? product.description
               : product.description.substring(0, 100) + "..."}
           </p>
-          <div className="flex justify-end">
+          <div className="flex justify-between items-center">
+            <span className=" text-red-700 font-black">
+              {currencyFormat(product.sellingPrice)}
+            </span>
             <button
               className="bg-red-300 transition-all hover:bg-red-500 hover:text-white p-3 rounded-full"
               onClick={() => {
