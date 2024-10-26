@@ -39,6 +39,10 @@ const apiEndPointObj = {
     url: `${API_URI}/product/get-all-products`,
     method: "GET",
   },
+  updateProduct: {
+    url: `${API_URI}/product/edit-product`,
+    method: "PUT",
+  },
 };
 
 export default apiEndPointObj;

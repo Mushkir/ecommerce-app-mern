@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { MdEdit } from "react-icons/md";
 import TheEditProduct from "../components/TheEditProduct";
 
-const TheProductCard = ({ product }) => {
+const TheProductCard = ({ product, fetchAllProducts }) => {
   const [openEditProduct, setOpenEditProduct] = useState(false);
   const [productData, setProductData] = useState({});
 
@@ -51,7 +51,11 @@ const TheProductCard = ({ product }) => {
 
       {/* Edit Product Component */}
       {openEditProduct && (
-        <TheEditProduct onClose={onClose} productData={productData} />
+        <TheEditProduct
+          onClose={onClose}
+          productData={productData}
+          updateProducts={fetchAllProducts}
+        />
       )}
     </div>
   );
@@ -59,6 +63,7 @@ const TheProductCard = ({ product }) => {
 
 TheProductCard.propTypes = {
   product: PropTypes.object.isRequired,
+  fetchAllProducts: PropTypes.func,
 };
 
 export default TheProductCard;

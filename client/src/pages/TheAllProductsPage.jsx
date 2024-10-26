@@ -93,7 +93,13 @@ const TheAllProductsPage = () => {
           ) : allProducts.length > 0 ? (
             allProducts.map((product, index) => {
               // console.log(product);
-              return <TheProductCard product={product} key={index} />;
+              return (
+                <TheProductCard
+                  product={product}
+                  key={index}
+                  fetchAllProducts={fetchAllProducts}
+                />
+              );
             })
           ) : (
             <div className="text-center text-red-500 text-lg font-bold mt-10">
