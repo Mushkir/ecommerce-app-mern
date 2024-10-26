@@ -5,11 +5,11 @@ import TheInput from "./TheInput";
 import TheSelectInput from "./TheSelectInput";
 import productCategory from "../helpers/productCategory";
 // import { MdDelete } from "react-icons/md";
-// import { IoMdCloudUpload } from "react-icons/io";
+import { IoMdCloudUpload } from "react-icons/io";
 import TheTextArea from "./TheTextArea";
 
 const TheEditProduct = ({ onClose, productData }) => {
-  console.log(productData);
+  // console.log(productData);
 
   const [formData, setFormData] = useState({
     productName: productData.productName,
@@ -18,11 +18,27 @@ const TheEditProduct = ({ onClose, productData }) => {
     price: productData.price,
     sellingPrice: productData.sellingPrice,
     description: productData.description,
+    productImgs: productData.productImgs,
   });
+
+  const [imageFile, setImageFile] = useState([]);
+
+  const fileInputRef = useRef(null);
+
+  console.log(formData.productImgs);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
     console.log(e.target.value);
+  };
+
+  const handleImgUploadClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const updateImage = (e) => {
+    const file = e.target.files[0];
+    setImageFile(file);
   };
 
   // const fileInputRef = useRef(null);
@@ -70,6 +86,53 @@ const TheEditProduct = ({ onClose, productData }) => {
               onChange={handleChange}
               value={formData.category}
             />
+
+            {/* Product img */}
+            <div className="flex flex-col gap-2 mb-3">
+              <label
+                className="text-sm text-gray-500 font-bold"
+                htmlFor="productImg"
+              >
+                Product images
+              </label>
+              <div
+                id="productImg"
+                onClick={handleImgUploadClick}
+                className="bg-slate-100 cursor-pointer p-2 rounded-sm outline-none w-full h-40 flex justify-center items-center"
+              >
+                <div className=" flex flex-col justify-center items-center">
+                  <div className=" text-gray-500 text-3xl">
+                    <IoMdCloudUpload />
+                  </div>
+                  <span className="font-semibold text-gray-500 text-sm">
+                    Upload images
+                  </span>
+                </div>
+                <input
+                  ref={fileInputRef}
+                  onChange={updateImage}
+                  className="hidden"
+                  id="productImg"
+                  type="file"
+                />
+              </div>
+
+              {/* Img files to preview */}
+              <div className="flex justify-center items-center gap-4">
+                {formData.productImgs.map((img, index) => {
+                  console.log(img);
+
+                  return (
+                    <img
+                      key={index}
+                      src={img}
+                      className="w-full max-w-20 h-20 object-cover rounded-md cursor-pointer"
+                      alt={`${formData.productName}'s image`}
+                    />
+                  );
+                })}
+              </div>
+            </div>
 
             {/* Price */}
             <TheInput
