@@ -1,7 +1,12 @@
 import React from "react";
+import TheProductCategoryList from "../components/TheProductCategoryList";
 
 const TheHomePage = () => {
-  return <div className="text-red-500">Home</div>;
+  return (
+    <div>
+      <TheProductCategoryList />
+    </div>
+  );
 };
 
 export default TheHomePage;

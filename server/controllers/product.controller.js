@@ -80,3 +80,23 @@ export const modifyProduct = async (req, res) => {
     res.status(500).json({ message: error.message, error: true });
   }
 };
+
+// GET Method
+// Get total product categories
+export const getAllProductCategory = async (req, res) => {
+  try {
+    const fieldName = "category";
+    const productCategoryData = await Product.distinct(fieldName);
+
+    const productCategoryInfo = [];
+
+    for (const category of productCategoryData) {
+      const categoryData = await Product.findOne({ category });
+      productCategoryInfo.push(categoryData);
+    }
+
+    res.status(200).json({ data: productCategoryInfo, error: false });
+  } catch (error) {
+    res.status(500).json({ message: error.message, error: true });
+  }
+};
