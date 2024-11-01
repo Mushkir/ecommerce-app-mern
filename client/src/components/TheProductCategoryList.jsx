@@ -45,7 +45,7 @@ const TheProductCategoryList = () => {
           />
         ) : (
           categories.map((category, index) => {
-            console.log(category);
+            // console.log(category);
 
             return (
               <div
