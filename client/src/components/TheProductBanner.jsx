@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import image1 from "../assets/banner/img1.webp";
 import image2 from "../assets/banner/img2.webp";
 import image3 from "../assets/banner/img3.jpg";
@@ -19,17 +19,36 @@ const TheProductBanner = () => {
   const imgsMobileVersion = [img1Mob, img2Mob, img3Mob, img4Mob, img5Mob];
 
   const sliderRight = () => {
-    if (images.length - 1 < currentImg) {
-      console.log(0);
+    if (images.length - 1 > currentImg) {
+      setCurrentImg((prev) => prev + 1);
     }
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (imgsMobileVersion.length - 1 > currentImg) {
+        setCurrentImg((prev) => prev + 1);
+      } else {
+        setCurrentImg(0);
+      }
+    }, 5000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [currentImg]);
+
+  // console.log(currentImg);
+
   return (
     <div className="">
-      <div className="container mx-auto px-5 py-2 relative">
+      <div className="container mx-auto h-80 p-2 md:px-5 py-2 relative">
         {/* Next, previous button */}
-        <div className=" absolute top-0 z-30 bottom-0 right-2 left-2 flex justify-between items-center">
-          <div className=" text-xl text-white bg-red-500 p-1 rounded-full cursor-pointer">
+        <div className=" absolute top-0 z-30 bottom-0 right-2 left-2 md:flex justify-between items-center hidden ">
+          <div
+            className=" text-xl text-white bg-red-500 p-1 rounded-full cursor-pointer"
+            onClick={() => setCurrentImg((prev) => prev - 1)}
+          >
             <FaArrowAltCircleLeft />
           </div>
           <div
@@ -40,15 +59,31 @@ const TheProductBanner = () => {
           </div>
         </div>
 
-        <div className="bg-yellow-500 w-full h-72 rounded-md flex items-center gap-5 overflow-hidden">
+        <div className="md:flex h-full w-full overflow-hidden rounded hidden">
           {images.map((img, index) => {
             return (
-              <img
-                key={index}
-                className="min-w-full h-full object-cover"
-                src={img}
-                alt=""
-              />
+              <div
+                className="w-full min-w-full h-full min-h-full transition-all"
+                key={img + index}
+                style={{ transform: `translateX(-${currentImg * 100}%)` }}
+              >
+                <img src={img} className="w-full h-full object-cover" alt="" />
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Mobile version */}
+        <div className="flex h-full w-full overflow-hidden rounded md:hidden">
+          {imgsMobileVersion.map((img, index) => {
+            return (
+              <div
+                className="w-full min-w-full h-full min-h-full transition-all"
+                key={img + index}
+                style={{ transform: `translateX(-${currentImg * 100}%)` }}
+              >
+                <img src={img} className="w-full h-full object-cover" alt="" />
+              </div>
             );
           })}
         </div>

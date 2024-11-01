@@ -30,8 +30,8 @@ const TheProductCategoryList = () => {
   }, []);
 
   return (
-    <div className="container mx-auto">
-      <div className="flex justify-between items-center p-5 overflow-x-scroll no-scrollbar">
+    <div className="container mx-auto font-Sen">
+      <div className="flex justify-between items-center p-2 md:p-5 overflow-x-scroll no-scrollbar">
         {loading ? (
           <TheListSkeleton
             listsToRender={13}
