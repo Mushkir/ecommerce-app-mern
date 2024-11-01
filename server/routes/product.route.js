@@ -3,6 +3,7 @@ import userAuth from "../middlewares/userAuth.middeware.js";
 import {
   CreateProduct,
   getAllProductCategory,
+  getCategoryWiseProducts,
   modifyProduct,
   readProducts,
 } from "../controllers/product.controller.js";
@@ -16,5 +17,10 @@ productRouter.get("/get-all-products", readProducts);
 productRouter.put("/edit-product/:id", modifyProduct);
 
 productRouter.get("/categories", getAllProductCategory);
+
+productRouter.get(
+  "/get-category-wise-product/:category",
+  getCategoryWiseProducts
+);
 
 export default productRouter;

@@ -1,8 +1,10 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import currencyFormat from "../utils/currencyFormat";
 import { FaArrowAltCircleRight, FaArrowCircleLeft } from "react-icons/fa";
+import PropTypes from "prop-types";
+import apiEndPointObj from "../common/api_uri";
 
-const TheHorizontalProductCardView = () => {
+const TheHorizontalProductCardView = ({ category, heading }) => {
   const navRef = useRef();
 
   const handleNav = (direction) => {
@@ -15,9 +17,26 @@ const TheHorizontalProductCardView = () => {
     }
   };
 
+  const getProductsData = async () => {
+    const data = await fetch(
+      apiEndPointObj.getCategoryWiseProducts.url + `/${category}`,
+      {
+        method: apiEndPointObj.getCategoryWiseProducts.method,
+        credentials: "include",
+      }
+    );
+
+    const results = await data.json();
+    console.log(results);
+  };
+
+  useEffect(() => {
+    getProductsData();
+  }, []);
+
   return (
     <div className="container mx-auto p-2 md:p-5 font-Sen">
-      <h3 className="text-2xl font-bold mt-3">Top Airpods</h3>
+      <h3 className="text-2xl font-bold mt-3">{heading}</h3>
       <div className="relative">
         {/* Slider buttons */}
         <div className="md:flex md:flex-col justify-between items-center hidden">
@@ -43,7 +62,7 @@ const TheHorizontalProductCardView = () => {
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((el, index) => (
             <div
               key={index}
-              className="flex items-center w-full min-w-[20rem] h-[150px] bg-white shadow-lg rounded overflow-hidden"
+              className="cursor-pointer flex items-center w-full min-w-[20rem] h-[150px] bg-white shadow-lg rounded overflow-hidden"
             >
               {/* Product Img */}
               <div className="bg-yellow-500 w-full min-w-[9rem] h-full">
@@ -58,7 +77,7 @@ const TheHorizontalProductCardView = () => {
               <div className="pl-4 space-y-1">
                 <h3 className="text-lg font-bold">Apple Airpods</h3>
                 <p className="text-sm text-gray-500">Airpods</p>
-                <div className="flex justify-between gap-3 items-center">
+                <div className=" space-x-2 pr-2">
                   <small className="text-sm text-red-500">
                     {currencyFormat(100)}
                   </small>
@@ -76,6 +95,11 @@ const TheHorizontalProductCardView = () => {
       </div>
     </div>
   );
+};
+
+TheHorizontalProductCardView.propTypes = {
+  category: PropTypes.string,
+  heading: PropTypes.string,
 };
 
 export default TheHorizontalProductCardView;

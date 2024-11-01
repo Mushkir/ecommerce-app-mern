@@ -100,3 +100,8 @@ export const getAllProductCategory = async (req, res) => {
     res.status(500).json({ message: error.message, error: true });
   }
 };
+
+export const getCategoryWiseProducts = async (req, res) => {
+  const { category } = req.params;
+  console.log(category);
+};
