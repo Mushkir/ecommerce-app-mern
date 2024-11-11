@@ -2,6 +2,7 @@ import React from "react";
 import TheProductCategoryList from "../components/TheProductCategoryList";
 import TheProductBanner from "../components/TheProductBanner";
 import TheHorizontalProductCardView from "../components/TheHorizontalProductCardView";
+import TheVerticalProductCardView from "../components/TheVerticalProductCardView";
 
 const TheHomePage = () => {
   return (
@@ -25,6 +26,8 @@ const TheHomePage = () => {
         category={"earphones"}
         heading={"Top Earphones"}
       />
+
+      <TheVerticalProductCardView />
     </div>
   );
 };
