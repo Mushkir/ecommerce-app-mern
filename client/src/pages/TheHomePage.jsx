@@ -31,6 +31,43 @@ const TheHomePage = () => {
         category={"mobiles"}
         heading={"Top Mobiles"}
       />
+
+      <TheVerticalProductCardView category={"mouse"} heading={"Top Mouse"} />
+
+      <TheVerticalProductCardView
+        category={"printers"}
+        heading={"Top Printers"}
+      />
+
+      <TheVerticalProductCardView
+        category={"processor"}
+        heading={"Top Processors"}
+      />
+
+      <TheVerticalProductCardView
+        category={"refrigerator"}
+        heading={"Top Refridgerator"}
+      />
+
+      <TheVerticalProductCardView
+        category={"speakers"}
+        heading={"Top speakers"}
+      />
+
+      <TheVerticalProductCardView
+        category={"televisions"}
+        heading={"Top televisions"}
+      />
+
+      <TheVerticalProductCardView
+        category={"trimmers"}
+        heading={"top trimmers"}
+      />
+
+      <TheVerticalProductCardView
+        category={"watches"}
+        heading={"top watches"}
+      />
     </div>
   );
 };

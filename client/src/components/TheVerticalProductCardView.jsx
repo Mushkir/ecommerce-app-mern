@@ -48,7 +48,7 @@ const TheVerticalProductCardView = ({ category, heading }) => {
 
   return (
     <div className="container mx-auto p-2 md:p-5 font-Sen">
-      <h3 className="text-2xl font-bold mt-3">{heading}</h3>
+      <h3 className="text-2xl font-bold mt-3 capitalize">{heading}</h3>
       <div className="relative">
         <div className="hidden md:flex justify-between items-center">
           <button
@@ -105,7 +105,7 @@ const TheVerticalProductCardView = ({ category, heading }) => {
             />
           ) : (
             products.map((product, index) => {
-              console.log(product);
+              // console.log(product);
 
               return (
                 <div
@@ -140,7 +140,7 @@ const TheVerticalProductCardView = ({ category, heading }) => {
                       </span>
                     </div>
 
-                    <button className=" bg-red-500 px-5 py-1.5 rounded-full w-full mt-4 text-white">
+                    <button className=" bg-red-500 px-5 py-1.5 rounded-full w-full mt-4 text-white hover:bg-red-600">
                       Add to card
                     </button>
                   </div>
