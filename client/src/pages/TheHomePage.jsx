@@ -5,7 +5,7 @@ import TheHorizontalProductCardView from "../components/TheHorizontalProductCard
 
 const TheHomePage = () => {
   return (
-    <div>
+    <div className="mb-5">
       <TheProductCategoryList />
 
       {/* Product img slider */}
@@ -14,6 +14,16 @@ const TheHomePage = () => {
       <TheHorizontalProductCardView
         category={"airpods"}
         heading={"Top Airpods"}
+      />
+
+      <TheHorizontalProductCardView
+        category={"camera"}
+        heading={"Top Cameras"}
+      />
+
+      <TheHorizontalProductCardView
+        category={"earphones"}
+        heading={"Top Earphones"}
       />
     </div>
   );

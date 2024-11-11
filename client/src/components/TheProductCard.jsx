@@ -27,7 +27,7 @@ const TheProductCard = ({ product, fetchAllProducts }) => {
           />
         </figure>
         <div className="card-body">
-          <h2 className="card-title">
+          <h2 className="card-title font-semibold mt-1.5 mb-2">
             {product.productName.substring(0, 18)}...
           </h2>
 

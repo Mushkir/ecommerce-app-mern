@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import currencyFormat from "../utils/currencyFormat";
 import { FaArrowAltCircleRight, FaArrowCircleLeft } from "react-icons/fa";
 import PropTypes from "prop-types";
@@ -6,6 +6,8 @@ import apiEndPointObj from "../common/api_uri";
 
 const TheHorizontalProductCardView = ({ category, heading }) => {
   const navRef = useRef();
+
+  const [products, setProducts] = useState([]);
 
   const handleNav = (direction) => {
     if (navRef.current) {
@@ -27,7 +29,10 @@ const TheHorizontalProductCardView = ({ category, heading }) => {
     );
 
     const results = await data.json();
-    console.log(results);
+    if (results.error === false) {
+      setProducts(results.data);
+    }
+    console.log(results.data);
   };
 
   useEffect(() => {
@@ -59,38 +64,43 @@ const TheHorizontalProductCardView = ({ category, heading }) => {
           className="mt-3 flex items-center gap-5 overflow-x-scroll no-scrollbar"
           ref={navRef}
         >
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((el, index) => (
-            <div
-              key={index}
-              className="cursor-pointer flex items-center w-full min-w-[20rem] h-[150px] bg-white shadow-lg rounded overflow-hidden"
-            >
-              {/* Product Img */}
-              <div className="bg-yellow-500 w-full min-w-[9rem] h-full">
-                <img
-                  className="w-full h-full object-cover"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYx19nWwMKtIHsZ9KJn_eSwB2DQrKIBHcIsw&s"
-                  alt="Product"
-                />
-              </div>
-
-              {/* Product details */}
-              <div className="pl-4 space-y-1">
-                <h3 className="text-lg font-bold">Apple Airpods</h3>
-                <p className="text-sm text-gray-500">Airpods</p>
-                <div className=" space-x-2 pr-2">
-                  <small className="text-sm text-red-500">
-                    {currencyFormat(100)}
-                  </small>
-                  <small className="text-sm text-gray-500 line-through">
-                    {currencyFormat(50)}
-                  </small>
+          {products.map((product, index) => {
+            console.log(product);
+            return (
+              <div
+                key={index}
+                className="cursor-pointer flex items-center w-full min-w-[20rem] h-[150px] bg-white shadow-lg rounded overflow-hidden"
+              >
+                {/* Product Img */}
+                <div className="w-full min-w-[9rem] h-full">
+                  <img
+                    className="w-full bg-slate-200 h-full object-cover"
+                    src={product?.productImgs[0]}
+                    alt={`${product?.productName}'s image`}
+                  />
                 </div>
-                <button className="bg-red-500 px-5 py-1 rounded-full text-white hover:bg-red-600 transition-all">
-                  Add to cart
-                </button>
+
+                {/* Product details */}
+                <div className="pl-4 space-y-1">
+                  <h3 className="text-lg font-bold line-clamp-1">
+                    {product?.productName}
+                  </h3>
+                  <p className="text-sm text-gray-500 capitalize">{category}</p>
+                  <div className=" space-x-2 pr-2">
+                    <small className="text-xs text-red-500">
+                      {currencyFormat(product?.sellingPrice)}
+                    </small>
+                    <small className="text-xs text-gray-500 line-through">
+                      {currencyFormat(product?.price)}
+                    </small>
+                  </div>
+                  <button className="bg-red-500 px-5 py-1 rounded-full text-white hover:bg-red-600 transition-all">
+                    Add to cart
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
