@@ -37,7 +37,7 @@ const TheHorizontalProductCardView = ({ category, heading }) => {
         setLoading(false);
         setProducts(results.data);
       }
-      console.log(results.data);
+      // console.log(results.data);
     } catch (error) {
       console.log(error);
     }
@@ -111,7 +111,7 @@ const TheHorizontalProductCardView = ({ category, heading }) => {
             />
           ) : (
             products.map((product, index) => {
-              console.log(product);
+              // console.log(product);
               return (
                 <div
                   key={index}

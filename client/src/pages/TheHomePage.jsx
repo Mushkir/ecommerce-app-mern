@@ -27,7 +27,10 @@ const TheHomePage = () => {
         heading={"Top Earphones"}
       />
 
-      <TheVerticalProductCardView />
+      <TheVerticalProductCardView
+        category={"mobiles"}
+        heading={"Top Mobiles"}
+      />
     </div>
   );
 };
