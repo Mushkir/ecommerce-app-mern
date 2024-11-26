@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const TheListSkeleton = ({ listsToRender, content }) => {
+const TheListSkeleton = ({ listsToRender = 1, content }) => {
   //   console.log(content);
 
   return (
@@ -17,7 +17,7 @@ const TheListSkeleton = ({ listsToRender, content }) => {
 };
 
 TheListSkeleton.propTypes = {
-  listsToRender: PropTypes.number.isRequired,
+  listsToRender: PropTypes.number,
   content: PropTypes.object.isRequired,
 };
 
