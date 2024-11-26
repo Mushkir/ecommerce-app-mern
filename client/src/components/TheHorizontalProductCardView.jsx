@@ -120,9 +120,9 @@ const TheHorizontalProductCardView = ({ category, heading }) => {
                   className="flex items-center w-full min-w-[20rem] h-[150px] bg-white shadow-lg rounded overflow-hidden"
                 >
                   {/* Product Img */}
-                  <div className="w-full min-w-[9rem] h-full">
+                  <div className="w-full min-w-[9rem] h-full bg-slate-200">
                     <img
-                      className="w-full bg-slate-200 h-full object-cover"
+                      className="w-full h-full mix-blend-multiply object-scale-down"
                       src={product?.productImgs[0]}
                       alt={`${product?.productName}'s image`}
                     />

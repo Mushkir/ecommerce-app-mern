@@ -69,7 +69,7 @@ const TheShowProductDetail = () => {
         </div>
 
         {/* Main Img */}
-        <div className=" bg-slate-200 w-[360px] h-[360px]">
+        <div className=" bg-slate-200 md:w-[360px] md:h-[360px]">
           {loading ? (
             <TheListSkeleton
               content={
@@ -172,7 +172,7 @@ const TheShowProductDetail = () => {
 
             {/* Description */}
             <span className=" font-semibold">Description:</span>
-            <p className=" text-justify text-slate-600">
+            <p className="text-justify text-slate-600">
               {productDetail?.description}
             </p>
           </div>
