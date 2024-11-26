@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import currencyFormat from "../utils/currencyFormat";
 import { FaArrowAltCircleRight, FaArrowCircleLeft } from "react-icons/fa";
 import PropTypes from "prop-types";
@@ -113,9 +114,10 @@ const TheHorizontalProductCardView = ({ category, heading }) => {
             products.map((product, index) => {
               // console.log(product);
               return (
-                <div
+                <Link
+                  to={`/product/${product?._id}`}
                   key={index}
-                  className="cursor-pointer flex items-center w-full min-w-[20rem] h-[150px] bg-white shadow-lg rounded overflow-hidden"
+                  className="flex items-center w-full min-w-[20rem] h-[150px] bg-white shadow-lg rounded overflow-hidden"
                 >
                   {/* Product Img */}
                   <div className="w-full min-w-[9rem] h-full">
@@ -146,7 +148,7 @@ const TheHorizontalProductCardView = ({ category, heading }) => {
                       Add to cart
                     </button>
                   </div>
-                </div>
+                </Link>
               );
             })
           )}

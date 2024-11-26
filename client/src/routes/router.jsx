@@ -10,6 +10,7 @@ import ThePrivateRoute from "../components/ThePrivateRoute";
 import TheAdminPanel from "../pages/TheAdminPanel";
 import TheAllUsersPage from "../pages/TheAllUsersPage";
 import TheAllProductsPage from "../pages/TheAllProductsPage";
+import TheShowProductDetail from "../pages/TheShowProductDetail";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/products",
         element: <TheAllProductsPage />,
+      },
+      {
+        path: "/product/:id",
+        element: <TheShowProductDetail />,
       },
       {
         path: "*",
