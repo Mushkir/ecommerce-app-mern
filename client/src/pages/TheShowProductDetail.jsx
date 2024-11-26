@@ -7,7 +7,7 @@ const TheShowProductDetail = () => {
   // console.log(id);
 
   return (
-    <div className=" container mx-auto p-4 flex gap-3">
+    <div className=" container mx-auto p-4 flex gap-3 font-Sen">
       {/* Product Imgs */}
       <div className="p-2 flex gap-3 w-full max-w-md">
         <div className=" flex flex-col gap-3">
@@ -35,34 +35,44 @@ const TheShowProductDetail = () => {
       </div>
 
       {/* Product Detail */}
-      <div className="w-full">
+      <div className="w-full py-2">
         {/* Brand Name */}
-        <span>Boat</span>
+        <span className=" bg-red-200 text-red-700 px-2 py-1 rounded-full">
+          Boat
+        </span>
 
         {/* Product name */}
-        <h3>Airpods 111</h3>
+        <h3 className=" mt-2 text-4xl font-semibold">Airpods 111</h3>
 
         {/* Category */}
-        <small>Airpods</small>
+        <small className=" text-slate-400">Airpods</small>
 
         {/* Price */}
-        <div>
+        <div className=" flex items-center gap-2">
           {/* Selling Price */}
-          <h2 className="">{currencyFormat(999)}</h2>
+          <h2 className=" text-2xl font-semibold text-red-600">
+            {currencyFormat(999)}
+          </h2>
 
           {/* Original price */}
-          <h2 className=" line-through">{currencyFormat(999)}</h2>
+          <h2 className=" text-2xl font-semibold line-through text-slate-400">
+            {currencyFormat(999)}
+          </h2>
         </div>
 
         {/* Buttons */}
-        <div>
-          <button>Buy</button>
-          <button>Add To Cart</button>
+        <div className=" flex items-center gap-4 mt-3 mb-3">
+          <button className=" px-5 min-w-24 border border-red-600 rounded py-1 text-red-600 hover:bg-red-600 hover:text-white transition-all">
+            Buy
+          </button>
+          <button className=" px-5 min-w-24 bg-red-600 border border-red-600 rounded py-1 text-white hover:bg-white hover:text-red-600 transition-all">
+            Add To Cart
+          </button>
         </div>
 
         {/* Description */}
-        <span>Description:</span>
-        <p className=" text-justify">
+        <span className=" font-semibold">Description:</span>
+        <p className=" text-justify text-slate-600">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
           similique quas porro, asperiores doloribus aperiam mollitia dolores
           aut non, delectus labore ipsum pariatur ipsa exercitationem quisquam

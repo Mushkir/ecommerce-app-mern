@@ -5,3 +5,5 @@
 3. Send the request to api to get product detail by id
 4. Get the product detail from api response
 5. Show in frontend
+
+
