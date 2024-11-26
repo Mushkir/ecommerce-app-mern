@@ -8,9 +8,8 @@ const TheShowProductDetail = () => {
   const { id } = useParams();
 
   const [productDetail, setProductDetail] = useState({});
-  const [productImgs, setProductImgs] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [activeImg, setActiveImg] = useState(null);
+  const [activeImg, setActiveImg] = useState("");
   // console.log(id);
 
   const getProductDetail = async () => {
@@ -27,7 +26,7 @@ const TheShowProductDetail = () => {
       const respData = await response.json();
       if (!respData.error) {
         setProductDetail(respData.data[0]);
-        setProductImgs(respData.data[0].productImgs);
+        setActiveImg(respData.data[0].productImgs[0]);
         // console.log(respData);
       }
     } catch (error) {
@@ -54,13 +53,14 @@ const TheShowProductDetail = () => {
               }
             />
           ) : (
-            productImgs?.map((imgUrl, index) => {
+            productDetail?.productImgs?.map((imgUrl, index) => {
               return (
                 <div className=" rounded overflow-hidden" key={index}>
                   <img
                     src={imgUrl}
                     alt="img"
-                    className="w-[5rem] h-[5rem] object-cover rounded mix-blend-multiply bg-slate-200"
+                    onMouseEnter={() => setActiveImg(imgUrl)}
+                    className="w-[5rem] h-[5rem] object-cover rounded mix-blend-multiply bg-slate-200 cursor-pointer"
                   />
                 </div>
               );
@@ -78,7 +78,7 @@ const TheShowProductDetail = () => {
             />
           ) : (
             <img
-              src={productImgs[0]}
+              src={activeImg}
               alt="img"
               className="w-full h-full object-scale-down mix-blend-multiply"
             />
