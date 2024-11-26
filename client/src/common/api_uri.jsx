@@ -51,6 +51,10 @@ const apiEndPointObj = {
     url: `${API_URI}/product/get-category-wise-product`,
     method: "GET",
   },
+  getProductDetailById: {
+    url: `${API_URI}/product/get-product-detail`,
+    method: "GET",
+  },
 };
 
 export default apiEndPointObj;

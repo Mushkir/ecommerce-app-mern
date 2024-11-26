@@ -110,3 +110,15 @@ export const getCategoryWiseProducts = async (req, res) => {
     res.status(500).json({ message: error.message, error: true });
   }
 };
+
+// GET Method
+// Get product by id
+export const getProductById = async (req, res) => {
+  const { id } = req?.params;
+  try {
+    const productDetail = await Product.find({ _id: id });
+    res.status(200).json({ data: productDetail, error: false });
+  } catch (error) {
+    res.status(500).json({ message: error.message, error: true });
+  }
+};

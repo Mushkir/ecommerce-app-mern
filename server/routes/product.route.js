@@ -4,6 +4,7 @@ import {
   CreateProduct,
   getAllProductCategory,
   getCategoryWiseProducts,
+  getProductById,
   modifyProduct,
   readProducts,
 } from "../controllers/product.controller.js";
@@ -22,5 +23,8 @@ productRouter.get(
   "/get-category-wise-product/:category",
   getCategoryWiseProducts
 );
+
+// Get product detail by id
+productRouter.get("/get-product-detail/:id", getProductById);
 
 export default productRouter;

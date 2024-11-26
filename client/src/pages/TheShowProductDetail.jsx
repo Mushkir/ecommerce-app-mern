@@ -1,10 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import currencyFormat from "../utils/currencyFormat";
+import apiEndPointObj from "../common/api_uri";
 
 const TheShowProductDetail = () => {
   const { id } = useParams();
+
+  const [productDetail, setProductDetail] = useState({});
   // console.log(id);
+
+  const getProductDetail = async () => {
+    try {
+      const response = await fetch(
+        apiEndPointObj.getProductDetailById.url + `/${id}`,
+        {
+          method: apiEndPointObj.getProductDetailById.method,
+          credentials: "include",
+        }
+      );
+
+      const respData = await response.json();
+      if (!respData.error) {
+        setProductDetail(respData.data[0]);
+        console.log(respData);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(productDetail);
+
+  useEffect(() => {
+    getProductDetail();
+  }, []);
 
   return (
     <div className=" container mx-auto p-4 flex gap-3 font-Sen">
