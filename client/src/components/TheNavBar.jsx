@@ -35,7 +35,7 @@ const TheNavBar = () => {
   };
 
   return (
-    <header className="bg-white shadow-md h-16 font-Sen">
+    <header className="bg-white shadow-md h-16 font-Sen fixed top-0 left-0 right-0 bottom-0 z-10">
       <div className="h-full container mx-auto px-4 flex justify-between items-center">
         <div>
           <Link to={"/"}>

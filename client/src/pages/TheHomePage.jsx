@@ -6,7 +6,7 @@ import TheVerticalProductCardView from "../components/TheVerticalProductCardView
 
 const TheHomePage = () => {
   return (
-    <div className="mb-5">
+    <div className="mb-5 mt-16">
       <TheProductCategoryList />
 
       {/* Product img slider */}

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import PropTypes from "prop-types";
 import apiEndPointObj from "../common/api_uri";
@@ -108,14 +109,15 @@ const TheVerticalProductCardView = ({ category, heading }) => {
               // console.log(product);
 
               return (
-                <div
+                <Link
+                  to={`product/${product?._id}`}
                   key={index}
                   className=" bg-white w-full min-w-[19rem] md:min-w-[22rem] h-[28rem] rounded overflow-hidden shadow-xl"
                 >
                   {/* Img */}
                   <div className="bg-slate-200 w-full h-full max-h-[15.5rem] pt-3">
                     <img
-                      className="w-full max-w-[14rem] object-scale-down h-full max-h-[14rem] mx-auto"
+                      className="w-full max-w-[14rem] mix-blend-multiply object-scale-down h-full max-h-[14rem] mx-auto"
                       src={product?.productImgs[0]}
                       alt=""
                     />
@@ -144,7 +146,7 @@ const TheVerticalProductCardView = ({ category, heading }) => {
                       Add to card
                     </button>
                   </div>
-                </div>
+                </Link>
               );
             })
           )}

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import currencyFormat from "../utils/currencyFormat";
 import apiEndPointObj from "../common/api_uri";
 import TheListSkeleton from "../components/TheListSkeleton";
+import TheImageMagnifier from "../components/TheImageMagnifier";
 
 const TheShowProductDetail = () => {
   const { id } = useParams();
@@ -41,7 +42,7 @@ const TheShowProductDetail = () => {
   console.log(productDetail);
 
   return (
-    <div className=" container mx-auto p-4 flex flex-col md:flex-row gap-3 font-Sen">
+    <div className=" container mx-auto p-4 flex flex-col md:flex-row gap-3 font-Sen mt-16">
       {/* Product Imgs */}
       <div className="p-2 flex flex-col-reverse md:flex-row gap-3 w-full max-w-md">
         <div className=" flex flex-row md:flex-col gap-3">
@@ -69,7 +70,7 @@ const TheShowProductDetail = () => {
         </div>
 
         {/* Main Img */}
-        <div className=" bg-slate-200 md:w-[360px] md:h-[360px]">
+        <div className=" bg-slate-200 md:w-[360px] md:h-[360px] rounded overflow-hidden">
           {loading ? (
             <TheListSkeleton
               content={
@@ -77,10 +78,14 @@ const TheShowProductDetail = () => {
               }
             />
           ) : (
-            <img
+            <TheImageMagnifier
               src={activeImg}
-              alt="img"
-              className="w-full h-full object-scale-down mix-blend-multiply"
+              width={300}
+              height={200}
+              magnifierHeight={400}
+              magnifierWidth={400}
+              zoomLevel={1.5}
+              alt="Sample Image"
             />
           )}
         </div>
@@ -138,24 +143,24 @@ const TheShowProductDetail = () => {
             </span>
 
             {/* Product name */}
-            <h3 className=" mt-2 text-4xl font-semibold">
+            <h3 className="mt-2 text-2xl md:text-4xl font-semibold">
               {productDetail?.productName}
             </h3>
 
             {/* Category */}
-            <small className=" text-slate-400 capitalize text-[1rem] mt-3 block">
+            <small className=" text-slate-400 capitalize text-sm md:text-[1rem] mt-1 md:mt-3 block">
               {productDetail?.category}
             </small>
 
             {/* Price */}
             <div className=" flex items-center gap-2">
               {/* Selling Price */}
-              <h2 className=" text-2xl font-semibold text-red-600">
+              <h2 className="text-md md:text-2xl font-semibold text-red-600">
                 {currencyFormat(productDetail?.sellingPrice)}
               </h2>
 
               {/* Original price */}
-              <h2 className=" text-2xl font-semibold line-through text-slate-400">
+              <h2 className="text-md md:text-2xl font-semibold line-through text-slate-400">
                 {currencyFormat(productDetail?.price)}
               </h2>
             </div>
@@ -171,8 +176,8 @@ const TheShowProductDetail = () => {
             </div>
 
             {/* Description */}
-            <span className=" font-semibold">Description:</span>
-            <p className="text-justify text-slate-600">
+            <span className="font-semibold">Description:</span>
+            <p className="text-justify text-slate-600 text-sm md:text-base">
               {productDetail?.description}
             </p>
           </div>
