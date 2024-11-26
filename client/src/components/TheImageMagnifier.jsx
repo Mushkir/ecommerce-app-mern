@@ -17,6 +17,7 @@ const TheImageMagnifier = ({
     <div className="">
       <img
         src={src}
+        style={{ height: height, width: width, objectFit: "scale-down" }}
         onMouseEnter={(e) => {
           const elem = e.currentTarget;
           const { width, height } = elem.getBoundingClientRect();
@@ -34,7 +35,7 @@ const TheImageMagnifier = ({
           setShowMagnifier(false);
         }}
         alt={"img"}
-        className="w-full h-full object-scale-down mix-blend-multiply cursor-pointer"
+        className="object-scale-down mix-blend-multiply cursor-pointer p-3"
       />
 
       <div

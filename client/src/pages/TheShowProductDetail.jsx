@@ -80,8 +80,8 @@ const TheShowProductDetail = () => {
           ) : (
             <TheImageMagnifier
               src={activeImg}
-              width={300}
-              height={200}
+              width={400}
+              height={400}
               magnifierHeight={400}
               magnifierWidth={400}
               zoomLevel={1.5}
