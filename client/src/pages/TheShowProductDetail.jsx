@@ -22,7 +22,7 @@ const TheShowProductDetail = () => {
       const respData = await response.json();
       if (!respData.error) {
         setProductDetail(respData.data[0]);
-        console.log(respData);
+        // console.log(respData);
       }
     } catch (error) {
       console.log(error);
@@ -36,10 +36,10 @@ const TheShowProductDetail = () => {
   }, []);
 
   return (
-    <div className=" container mx-auto p-4 flex gap-3 font-Sen">
+    <div className=" container mx-auto p-4 flex flex-col md:flex-row gap-3 font-Sen">
       {/* Product Imgs */}
-      <div className="p-2 flex gap-3 w-full max-w-md">
-        <div className=" flex flex-col gap-3">
+      <div className="p-2 flex flex-col-reverse md:flex-row gap-3 w-full max-w-md">
+        <div className=" flex flex-row md:flex-col gap-3">
           {[1, 2, 3, 4].map((el) => {
             return (
               <div className=" rounded overflow-hidden" key={el}>
