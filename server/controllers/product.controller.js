@@ -114,7 +114,7 @@ export const getCategoryWiseProducts = async (req, res) => {
 // GET Method
 // Get product by id
 export const getProductById = async (req, res) => {
-  const { id } = req?.params;
+  const { id } = req?.body;
   try {
     const productDetail = await Product.find({ _id: id });
     res.status(200).json({ data: productDetail, error: false });

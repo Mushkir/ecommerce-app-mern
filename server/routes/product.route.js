@@ -25,6 +25,6 @@ productRouter.get(
 );
 
 // Get product detail by id
-productRouter.get("/get-product-detail/:id", getProductById);
+productRouter.post("/get-product-detail", getProductById);
 
 export default productRouter;

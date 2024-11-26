@@ -57,7 +57,11 @@ const TheLoginPage = () => {
     const { resp } = data;
 
     dispatch(UserLoggedIn(resp));
-    navigate("/admin/all-users");
+    if (resp.role === "admin") {
+      // navigate("/admin/all-users");
+    } else {
+      navigate("/");
+    }
     // console.log(data);
   };
 

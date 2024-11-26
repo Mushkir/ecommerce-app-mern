@@ -53,7 +53,7 @@ const apiEndPointObj = {
   },
   getProductDetailById: {
     url: `${API_URI}/product/get-product-detail`,
-    method: "GET",
+    method: "POST",
   },
 };
 
