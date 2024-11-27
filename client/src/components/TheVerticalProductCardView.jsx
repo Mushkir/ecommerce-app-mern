@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import apiEndPointObj from "../common/api_uri";
 import TheListSkeleton from "./TheListSkeleton";
 import currencyFormat from "../utils/currencyFormat";
+import handleAddToCart from "../helpers/handleAddToCart";
 
 const TheVerticalProductCardView = ({ category, heading }) => {
   const [products, setProducts] = useState([]);
@@ -142,7 +143,11 @@ const TheVerticalProductCardView = ({ category, heading }) => {
                       </span>
                     </div>
 
-                    <button className=" bg-red-500 px-5 py-1.5 rounded-full w-full mt-4 text-white hover:bg-red-600">
+                    <button
+                      type="button"
+                      onClick={(e) => handleAddToCart(e, product?._id)}
+                      className=" bg-red-500 px-5 py-1.5 rounded-full w-full mt-4 text-white hover:bg-red-600"
+                    >
                       Add to card
                     </button>
                   </div>

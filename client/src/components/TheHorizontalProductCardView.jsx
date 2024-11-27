@@ -5,6 +5,7 @@ import { FaArrowAltCircleRight, FaArrowCircleLeft } from "react-icons/fa";
 import PropTypes from "prop-types";
 import apiEndPointObj from "../common/api_uri";
 import TheListSkeleton from "./TheListSkeleton";
+import handleAddToCart from "../helpers/handleAddToCart";
 
 const TheHorizontalProductCardView = ({ category, heading }) => {
   const navRef = useRef();
@@ -53,7 +54,7 @@ const TheHorizontalProductCardView = ({ category, heading }) => {
       <h3 className="text-2xl font-bold mt-3">{heading}</h3>
       <div className="relative">
         {/* Slider buttons */}
-        <div className="md:flex md:flex-col justify-between items-center hidden">
+        <div className="md:flex md:flex-col justify-between items-center hidden z-40">
           <button
             className="bg-red-500 text-xl p-1 rounded-full text-white absolute -left-3 top-[74px]"
             onClick={() => handleNav("left")}
@@ -70,7 +71,7 @@ const TheHorizontalProductCardView = ({ category, heading }) => {
 
         {/* Scrollable product container */}
         <div
-          className="mt-3 flex items-center gap-5 overflow-x-scroll no-scrollbar"
+          className="mt-3 flex items-center gap-5 overflow-x-scroll no-scrollbar -z-10"
           ref={navRef}
         >
           {loading ? (
@@ -144,7 +145,11 @@ const TheHorizontalProductCardView = ({ category, heading }) => {
                         {currencyFormat(product?.price)}
                       </small>
                     </div>
-                    <button className="bg-red-500 px-5 py-1 rounded-full text-white hover:bg-red-600 transition-all">
+                    <button
+                      type="button"
+                      onClick={(e) => handleAddToCart(e, product?._id)}
+                      className="bg-red-500 px-5 py-1 rounded-full text-white hover:bg-red-600 transition-all"
+                    >
                       Add to cart
                     </button>
                   </div>

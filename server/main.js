@@ -5,6 +5,7 @@ import connectDB from "./lib/db.js";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import productRouter from "./routes/product.route.js";
+import cartRouter from "./routes/cart.route.js";
 // import userAuth from "./middlewares/userAuth.middeware.js";
 
 dotenv.config();
@@ -23,6 +24,7 @@ app.use(cookieParser());
 
 app.use("/", router);
 app.use("/product", productRouter);
+app.use("/cart", cartRouter);
 // app.use("/", productRouter);
 
 app.listen(PORT, () => {

@@ -96,21 +96,29 @@ const TheShowProductDetail = () => {
               <span className="bg-red-200 text-red-700 px-2 py-1 rounded-full">
                 {productDetail?.brandName}
               </span>
-              <h3 className="text-4xl font-semibold">
+              <h3 className="text-2xl md:text-4xl font-semibold">
                 {productDetail?.productName}
               </h3>
               <small className="text-slate-400 capitalize">
                 {productDetail?.category}
               </small>
               <div className="flex items-center gap-2">
-                <h2 className="text-2xl font-semibold text-red-600">
+                <h2 className="text-lg md:text-2xl font-semibold text-red-600">
                   {currencyFormat(productDetail?.sellingPrice)}
                 </h2>
-                <h2 className="text-2xl font-semibold line-through text-slate-400">
+                <h2 className="text-lg md:text-2xl font-semibold line-through text-slate-400">
                   {currencyFormat(productDetail?.price)}
                 </h2>
               </div>
-              <button className="btn-red">Add to cart</button>
+
+              <div className=" flex items-center gap-4 mt-1.5 mb-3">
+                <button className=" min-w-24 text-red-600 px-5 py-1 border border-red-600 rounded hover:bg-red-600 hover:text-white transition-all">
+                  Buy
+                </button>
+                <button className=" min-w-24 px-5 py-1 border border-red-600 rounded bg-red-600 text-white hover:bg-white hover:text-red-600 transition-all">
+                  Add to cart
+                </button>
+              </div>
               <p className="text-slate-600">{productDetail?.description}</p>
             </div>
           )}
