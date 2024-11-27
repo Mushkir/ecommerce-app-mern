@@ -42,7 +42,7 @@ const TheNavBar = () => {
       <div className="h-full container mx-auto px-4 flex justify-between items-center">
         <div>
           <Link to={"/"}>
-            <TheLogo w={90} h={50} />
+            <TheLogo />
           </Link>
         </div>
 
@@ -52,7 +52,7 @@ const TheNavBar = () => {
             type="text"
             name="search-product"
             id="search-product"
-            className="w-full outline-none "
+            className="w-full outline-none"
             placeholder="Search your products..."
           />
           <div className="text-lg min-w-[50px] flex justify-center items-center h-8 rounded-r-full bg-red-500 text-white">
@@ -111,7 +111,7 @@ const TheNavBar = () => {
           {/* Cart */}
           {countCartItem > 0 && currentUser?.currentUser?._id
             ? countCartItem > 0 && (
-                <div className="relative cursor-pointer">
+                <Link to={"/cart"} className="relative cursor-pointer">
                   <div className="text-black">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +129,7 @@ const TheNavBar = () => {
                   <span className="text-sm absolute flex items-center bg-red-500 w-5 h-5 text-white p-1 rounded-full -top-3 -right-3">
                     {countCartItem}
                   </span>
-                </div>
+                </Link>
               )
             : ""}
 

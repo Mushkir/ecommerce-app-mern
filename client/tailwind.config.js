@@ -6,6 +6,7 @@ export default {
     extend: {
       fontFamily: {
         Sen: ["Sen"],
+        Caveat: ["Caveat"],
       },
     },
   },

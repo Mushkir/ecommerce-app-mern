@@ -11,6 +11,7 @@ import TheAdminPanel from "../pages/TheAdminPanel";
 import TheAllUsersPage from "../pages/TheAllUsersPage";
 import TheAllProductsPage from "../pages/TheAllProductsPage";
 import TheShowProductDetail from "../pages/TheShowProductDetail";
+import TheCartPage from "../pages/TheCartPage";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
                 element: <TheAllProductsPage />,
               },
             ],
+          },
+          {
+            path: "cart",
+            element: <TheCartPage />,
           },
         ],
       },
