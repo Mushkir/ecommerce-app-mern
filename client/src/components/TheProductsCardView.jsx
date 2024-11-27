@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import apiEndPointObj from "../common/api_uri";
 import TheListSkeleton from "./TheListSkeleton";
 import currencyFormat from "../utils/currencyFormat";
+import handleAddToCart from "../helpers/handleAddToCart";
+import Context from "../context/context";
 
 const TheProductsCardView = ({ category, heading }) => {
+  const { countCartItems } = useContext(Context);
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -29,6 +33,11 @@ const TheProductsCardView = ({ category, heading }) => {
       console.error("Error fetching products: " + error.message);
       setLoading(false);
     }
+  };
+
+  const handleAddToCartItems = async (e, id) => {
+    await handleAddToCart(e, id);
+    countCartItems();
   };
 
   useEffect(() => {
@@ -88,7 +97,10 @@ const TheProductsCardView = ({ category, heading }) => {
                       {currencyFormat(product?.price)}
                     </span>
                   </div>
-                  <button className="bg-red-500 px-5 py-1.5 rounded-full w-full mt-4 text-white hover:bg-red-600">
+                  <button
+                    onClick={(e) => handleAddToCartItems(e, product?._id)}
+                    className="bg-red-500 px-5 py-1.5 rounded-full w-full mt-4 text-white hover:bg-red-600"
+                  >
                     Add to cart
                   </button>
                 </div>

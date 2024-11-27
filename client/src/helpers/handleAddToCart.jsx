@@ -19,7 +19,7 @@ const handleAddToCart = async (e, id) => {
     if (data.message === "Unauthorized") {
       window.location.href = "/login";
     }
-    console.log(data);
+    // console.log(data);
   } catch (error) {
     console.error(error);
   }

@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import currencyFormat from "../utils/currencyFormat";
 import apiEndPointObj from "../common/api_uri";
 import TheListSkeleton from "../components/TheListSkeleton";
 import TheImageMagnifier from "../components/TheImageMagnifier";
 import TheProductsCardView from "../components/TheProductsCardView";
+import handleAddToCart from "../helpers/handleAddToCart";
+import Context from "../context/context";
 
 const TheShowProductDetail = () => {
   const { id } = useParams();
+  const { countCartItems } = useContext(Context);
 
   const [productDetail, setProductDetail] = useState({});
   const [loading, setLoading] = useState(false);
@@ -34,6 +37,11 @@ const TheShowProductDetail = () => {
       console.error("Error fetching product detail: ", error);
       setLoading(false);
     }
+  };
+
+  const handleAddToCartItems = async (e, id) => {
+    await handleAddToCart(e, id);
+    countCartItems();
   };
 
   useEffect(() => {
@@ -115,7 +123,10 @@ const TheShowProductDetail = () => {
                 <button className=" min-w-24 text-red-600 px-5 py-1 border border-red-600 rounded hover:bg-red-600 hover:text-white transition-all">
                   Buy
                 </button>
-                <button className=" min-w-24 px-5 py-1 border border-red-600 rounded bg-red-600 text-white hover:bg-white hover:text-red-600 transition-all">
+                <button
+                  onClick={(e) => handleAddToCartItems(e, id)}
+                  className=" min-w-24 px-5 py-1 border border-red-600 rounded bg-red-600 text-white hover:bg-white hover:text-red-600 transition-all"
+                >
                   Add to cart
                 </button>
               </div>

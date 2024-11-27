@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import PropTypes from "prop-types";
@@ -6,11 +6,14 @@ import apiEndPointObj from "../common/api_uri";
 import TheListSkeleton from "./TheListSkeleton";
 import currencyFormat from "../utils/currencyFormat";
 import handleAddToCart from "../helpers/handleAddToCart";
+import Context from "../context/context";
 
 const TheVerticalProductCardView = ({ category, heading }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const navRef = useRef();
+
+  const { countCartItems } = useContext(Context);
 
   const getCategoryWiseProductData = async () => {
     try {
@@ -46,6 +49,11 @@ const TheVerticalProductCardView = ({ category, heading }) => {
     } else {
       navRef ? (navRef.current.scrollLeft += 200) : null;
     }
+  };
+
+  const handleAddToCartItems = async (e, id) => {
+    await handleAddToCart(e, id);
+    countCartItems();
   };
 
   return (
@@ -145,7 +153,7 @@ const TheVerticalProductCardView = ({ category, heading }) => {
 
                     <button
                       type="button"
-                      onClick={(e) => handleAddToCart(e, product?._id)}
+                      onClick={(e) => handleAddToCartItems(e, product?._id)}
                       className=" bg-red-500 px-5 py-1.5 rounded-full w-full mt-4 text-white hover:bg-red-600"
                     >
                       Add to card
