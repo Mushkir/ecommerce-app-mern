@@ -63,6 +63,10 @@ const apiEndPointObj = {
     url: `${API_URI}/cart/count-cart`,
     method: "GET",
   },
+  getCartItemsDetail: {
+    url: `${API_URI}/cart/get-user-cart-items`,
+    method: "GET",
+  },
 };
 
 export default apiEndPointObj;

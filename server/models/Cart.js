@@ -2,7 +2,10 @@ import mongoose, { Schema } from "mongoose";
 
 const cartSchema = new Schema(
   {
-    productId: String,
+    productId: {
+      type: String,
+      ref: "Product",
+    },
     qty: {
       type: Number,
       default: 1,

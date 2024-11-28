@@ -45,3 +45,16 @@ export const countCart = async (req, res) => {
     res.status(500).json({ message: error.message, error: true });
   }
 };
+
+// GET Method
+// Get cart items details by user
+export const getCartItemsByUser = async (req, res) => {
+  const userId = req?.userId;
+
+  try {
+    const productDetails = await Cart.find({ userId }).populate("productId");
+    return res.status(200).json({ data: productDetails, error: false });
+  } catch (error) {
+    res.status(500).json({ message: error.message, error: true });
+  }
+};
