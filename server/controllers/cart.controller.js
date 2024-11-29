@@ -77,3 +77,19 @@ export const updateCartQty = async (req, res) => {
     res.status(500).json({ message: error.message, error: true });
   }
 };
+
+// DELETE Method
+// Delete cart item
+export const deleteCartItem = async (req, res) => {
+  try {
+    const currentUserId = req?.userId;
+    const cartId = req?.params?.id;
+
+    await Cart.deleteOne({ _id: cartId, userId: currentUserId });
+    res
+      .status(200)
+      .json({ message: "Item deleted successfully", error: false });
+  } catch (error) {
+    res.status(500).json({ message: error.message, error: true });
+  }
+};

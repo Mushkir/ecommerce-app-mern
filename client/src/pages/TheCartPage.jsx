@@ -9,8 +9,8 @@ import { MdDelete } from "react-icons/md";
 
 const TheCartPage = () => {
   const { countCartItems, countCartItem } = useContext(Context);
-  // const context = useContext(Context);
-  // console.log(context);
+  const context = useContext(Context);
+  console.log(context);
 
   const [cartProductDetails, setCartProductDetails] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -95,6 +95,10 @@ const TheCartPage = () => {
       );
 
       const respData = await response.json();
+      if (!respData.error) {
+        getUserCartItemDetail();
+        countCartItems();
+      }
       console.log(respData);
     } catch (error) {
       console.log(error);
@@ -245,53 +249,55 @@ const TheCartPage = () => {
         </div>
 
         {/* Total */}
-        <div className="w-full md:max-w-sm">
-          {countCartItem > 0 && loading ? (
-            <div className=" bg-white w-full rounded overflow-hidden animate-pulse">
-              <h3 className="w-full h-10 bg-slate-200 text-white"></h3>
+        {countCartItem > 0 && (
+          <div className="w-full md:max-w-sm">
+            {countCartItem > 0 && loading ? (
+              <div className=" bg-white w-full rounded overflow-hidden animate-pulse">
+                <h3 className="w-full h-10 bg-slate-200 text-white"></h3>
 
-              <div className=" px-5 py-2">
-                <div className=" flex items-center justify-between mb-2 h-7 bg-slate-200 rounded">
-                  <span></span>
-                  <span></span>
+                <div className=" px-5 py-2">
+                  <div className=" flex items-center justify-between mb-2 h-7 bg-slate-200 rounded">
+                    <span></span>
+                    <span></span>
+                  </div>
+
+                  <div className=" flex items-center justify-between mb-2 bg-slate-200 h-7 rounded">
+                    <span></span>
+                    <span></span>
+                  </div>
                 </div>
 
-                <div className=" flex items-center justify-between mb-2 bg-slate-200 h-7 rounded">
-                  <span></span>
-                  <span></span>
-                </div>
+                <button className=" bg-slate-200 w-full h-10"></button>
               </div>
+            ) : (
+              <div className=" bg-white w-full rounded overflow-hidden">
+                <h3 className="px-5 p-2 bg-red-600 text-white font-semibold">
+                  Summary
+                </h3>
 
-              <button className=" bg-slate-200 w-full h-10"></button>
-            </div>
-          ) : (
-            <div className=" bg-white w-full rounded overflow-hidden">
-              <h3 className="px-5 p-2 bg-red-600 text-white font-semibold">
-                Summary
-              </h3>
+                <div className=" px-5 py-2">
+                  <div className=" flex items-center justify-between mb-2">
+                    <span className=" font-semibold">Quantity</span>
+                    <span>
+                      {totalCartItemsQty < 10
+                        ? `0${totalCartItemsQty}`
+                        : totalCartItemsQty}
+                    </span>
+                  </div>
 
-              <div className=" px-5 py-2">
-                <div className=" flex items-center justify-between mb-2">
-                  <span className=" font-semibold">Quantity</span>
-                  <span>
-                    {totalCartItemsQty < 10
-                      ? `0${totalCartItemsQty}`
-                      : totalCartItemsQty}
-                  </span>
+                  <div className=" flex items-center justify-between mb-2">
+                    <span className=" font-semibold">Total Price</span>
+                    <span>{currencyFormat(totalPrice)}</span>
+                  </div>
                 </div>
 
-                <div className=" flex items-center justify-between mb-2">
-                  <span className=" font-semibold">Total Price</span>
-                  <span>{currencyFormat(totalPrice)}</span>
-                </div>
+                <button className=" bg-blue-500 w-full px-5 py-2 hover:bg-blue-600 text-white transition-all">
+                  Payment
+                </button>
               </div>
-
-              <button className=" bg-blue-500 w-full px-5 py-2 hover:bg-blue-600 text-white transition-all">
-                Payment
-              </button>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
