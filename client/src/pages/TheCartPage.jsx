@@ -12,13 +12,8 @@ const TheCartPage = () => {
   // const context = useContext(Context);
   // console.log(context);
 
-  // const currentUser = useSelector((state) => state?.user?.currentUser);
-  // console.log(currentUser);
-
   const [cartProductDetails, setCartProductDetails] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  // console.log(countCartItems);
 
   const getUserCartItemDetail = async () => {
     try {
@@ -39,11 +34,63 @@ const TheCartPage = () => {
     }
   };
 
+  const increaseQty = async (id, qty) => {
+    try {
+      const response = await fetch(apiEndPointObj.updateCartProductQty.url, {
+        method: apiEndPointObj.updateCartProductQty.method,
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cartId: id,
+          quantity: qty + 1,
+        }),
+      });
+
+      const respData = await response.json();
+      if (!respData.error) {
+        getUserCartItemDetail();
+      }
+      // console.log(respData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const decreaseQty = async (id, qty) => {
+    try {
+      if (qty > 1) {
+        const response = await fetch(apiEndPointObj.updateCartProductQty.url, {
+          method: apiEndPointObj.updateCartProductQty.method,
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            cartId: id,
+            quantity: qty - 1,
+          }),
+        });
+
+        const respData = await response.json();
+        if (!respData.error) {
+          getUserCartItemDetail();
+        }
+        console.log(respData);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getUserCartItemDetail();
   }, []);
 
-  console.log(cartProductDetails);
+  // console.log(selectedProductId);
+
+  // console.log(cartProductDetails);
 
   return (
     <div className="mt-20 font-Sen container mx-auto px-2 sm:px-5">
@@ -140,11 +187,17 @@ const TheCartPage = () => {
 
                     {/* Buttons */}
                     <div className=" flex items-center gap-3 mt-1.5">
-                      <button className=" border flex items-center justify-center border-red-600 w-6 h-6 rounded text-red-600 hover:bg-red-600 hover:text-white transition-all">
+                      <button
+                        onClick={() => decreaseQty(product?._id, product?.qty)}
+                        className=" border flex items-center justify-center border-red-600 w-6 h-6 rounded text-red-600 hover:bg-red-600 hover:text-white transition-all"
+                      >
                         -
                       </button>
                       <span>{product?.qty}</span>
-                      <button className=" border flex items-center justify-center border-red-600 w-6 h-6 rounded text-red-600 hover:bg-red-600 hover:text-white transition-all">
+                      <button
+                        onClick={() => increaseQty(product?._id, product?.qty)}
+                        className=" border flex items-center justify-center border-red-600 w-6 h-6 rounded text-red-600 hover:bg-red-600 hover:text-white transition-all"
+                      >
                         +
                       </button>
                     </div>
@@ -156,24 +209,46 @@ const TheCartPage = () => {
         </div>
 
         {/* Total */}
-        <div className=" bg-white w-full md:max-w-sm rounded overflow-hidden">
-          <h3 className="px-5 p-2 bg-red-600 text-white">Summary</h3>
+        <div className="w-full md:max-w-sm">
+          {countCartItem > 0 && loading ? (
+            <div className=" bg-white w-full rounded overflow-hidden animate-pulse">
+              <h3 className="w-full h-10 bg-slate-200 text-white"></h3>
 
-          <div className=" px-5 py-2">
-            <div className=" flex items-center justify-between mb-2">
-              <span>Quantity</span>
-              <span>6</span>
+              <div className=" px-5 py-2">
+                <div className=" flex items-center justify-between mb-2 h-7 bg-slate-200 rounded">
+                  <span></span>
+                  <span></span>
+                </div>
+
+                <div className=" flex items-center justify-between mb-2 bg-slate-200 h-7 rounded">
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+
+              <button className=" bg-slate-200 w-full h-10"></button>
             </div>
+          ) : (
+            <div className=" bg-white w-full rounded overflow-hidden">
+              <h3 className="px-5 p-2 bg-red-600 text-white">Summary</h3>
 
-            <div className=" flex items-center justify-between mb-2">
-              <span>Total Price</span>
-              <span>{currencyFormat(1000)}</span>
+              <div className=" px-5 py-2">
+                <div className=" flex items-center justify-between mb-2">
+                  <span>Quantity</span>
+                  <span>6</span>
+                </div>
+
+                <div className=" flex items-center justify-between mb-2">
+                  <span>Total Price</span>
+                  <span>{currencyFormat(1000)}</span>
+                </div>
+              </div>
+
+              <button className=" bg-blue-500 w-full px-5 py-2 hover:bg-blue-600 text-white transition-all">
+                Payment
+              </button>
             </div>
-          </div>
-
-          <button className=" bg-blue-500 w-full px-5 py-2 hover:bg-blue-600 text-white transition-all">
-            Payment
-          </button>
+          )}
         </div>
       </div>
     </div>

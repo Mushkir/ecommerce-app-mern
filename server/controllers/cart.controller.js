@@ -58,3 +58,22 @@ export const getCartItemsByUser = async (req, res) => {
     res.status(500).json({ message: error.message, error: true });
   }
 };
+
+// POST Method
+// Update cart item quantity
+export const updateCartQty = async (req, res) => {
+  try {
+    const { cartId, quantity } = req?.body;
+
+    const filter = { _id: cartId };
+    const update = { qty: quantity };
+
+    const doc = await Cart.findOneAndUpdate(filter, update);
+    res.status(200).json({ data: doc, error: false });
+    // console.log(doc);
+
+    // console.log(cartId, quantity);
+  } catch (error) {
+    res.status(500).json({ message: error.message, error: true });
+  }
+};

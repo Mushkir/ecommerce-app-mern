@@ -67,6 +67,10 @@ const apiEndPointObj = {
     url: `${API_URI}/cart/get-user-cart-items`,
     method: "GET",
   },
+  updateCartProductQty: {
+    url: `${API_URI}/cart/update-cart-quantity`,
+    method: "POST",
+  },
 };
 
 export default apiEndPointObj;
