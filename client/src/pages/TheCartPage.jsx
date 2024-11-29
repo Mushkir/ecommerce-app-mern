@@ -84,13 +84,27 @@ const TheCartPage = () => {
     }
   };
 
+  const totalCartItemsQty = cartProductDetails.reduce(
+    (accumulator, productDetail) => {
+      return accumulator + productDetail?.qty;
+    },
+    0
+  );
+
+  const totalPrice = cartProductDetails.reduce((accumulator, productDetail) => {
+    return (accumulator +=
+      productDetail?.productId?.sellingPrice * productDetail?.qty);
+  }, 0);
+
   useEffect(() => {
     getUserCartItemDetail();
   }, []);
 
-  // console.log(selectedProductId);
+  // cartProductDetails.forEach((el) => {
+  //   console.log(el.qty);
+  // });
 
-  // console.log(cartProductDetails);
+  // console.log(totalPrice);
 
   return (
     <div className="mt-20 font-Sen container mx-auto px-2 sm:px-5">
@@ -181,7 +195,9 @@ const TheCartPage = () => {
                       </span>
 
                       <span className=" text-slate-700 text-sm lg:text-base">
-                        {currencyFormat(1000)}
+                        {currencyFormat(
+                          product?.productId?.sellingPrice * product?.qty
+                        )}
                       </span>
                     </div>
 
@@ -230,17 +246,23 @@ const TheCartPage = () => {
             </div>
           ) : (
             <div className=" bg-white w-full rounded overflow-hidden">
-              <h3 className="px-5 p-2 bg-red-600 text-white">Summary</h3>
+              <h3 className="px-5 p-2 bg-red-600 text-white font-semibold">
+                Summary
+              </h3>
 
               <div className=" px-5 py-2">
                 <div className=" flex items-center justify-between mb-2">
-                  <span>Quantity</span>
-                  <span>6</span>
+                  <span className=" font-semibold">Quantity</span>
+                  <span>
+                    {totalCartItemsQty < 10
+                      ? `0${totalCartItemsQty}`
+                      : totalCartItemsQty}
+                  </span>
                 </div>
 
                 <div className=" flex items-center justify-between mb-2">
-                  <span>Total Price</span>
-                  <span>{currencyFormat(1000)}</span>
+                  <span className=" font-semibold">Total Price</span>
+                  <span>{currencyFormat(totalPrice)}</span>
                 </div>
               </div>
 
