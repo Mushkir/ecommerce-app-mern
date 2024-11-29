@@ -84,6 +84,23 @@ const TheCartPage = () => {
     }
   };
 
+  const handleDeleteProduct = async (id) => {
+    try {
+      const response = await fetch(
+        apiEndPointObj.deleteCartItem.url + `/${id}`,
+        {
+          method: apiEndPointObj.deleteCartItem.method,
+          credentials: "include",
+        }
+      );
+
+      const respData = await response.json();
+      console.log(respData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const totalCartItemsQty = cartProductDetails.reduce(
     (accumulator, productDetail) => {
       return accumulator + productDetail?.qty;
@@ -177,7 +194,10 @@ const TheCartPage = () => {
                   {/* Product details */}
                   <div className="px-5 pt-2 relative w-full">
                     {/* Delete icon */}
-                    <div className="absolute right-0 mr-3 mt-1.5 text-red-600 bg-red-50 p-1 hover:bg-red-600 hover:text-white transition-all cursor-pointer rounded-full">
+                    <div
+                      onClick={() => handleDeleteProduct(product?._id)}
+                      className="absolute right-0 mr-3 mt-1.5 text-red-600 bg-red-50 p-1 hover:bg-red-600 hover:text-white transition-all cursor-pointer rounded-full"
+                    >
                       <MdDelete />
                     </div>
 
