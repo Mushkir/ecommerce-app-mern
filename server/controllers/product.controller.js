@@ -122,3 +122,27 @@ export const getProductById = async (req, res) => {
     res.status(500).json({ message: error.message, error: true });
   }
 };
+
+// GET Method
+// Search product
+export const searchProduct = async (req, res) => {
+  try {
+    const { product } = req.query;
+
+    const productWithoutCaseSensitive = new RegExp(product, "i", "g");
+
+    const searchResults = await Product.find({
+      $or: [
+        {
+          category: productWithoutCaseSensitive,
+        },
+        {
+          productName: productWithoutCaseSensitive,
+        },
+      ],
+    });
+    res.status(200).json({ data: searchResults, error: false });
+  } catch (error) {
+    res.status(500).json({ message: error.message, error: true });
+  }
+};

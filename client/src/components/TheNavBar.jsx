@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import TheLogo from "./TheLogo";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { UserLogout } from "../redux/user/userSlice";
 import apiEndPointObj from "../common/api_uri";
@@ -9,7 +9,12 @@ import { GiShoppingCart } from "react-icons/gi";
 import { BsCartFill } from "react-icons/bs";
 
 const TheNavBar = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState(
+    searchParams.get("product") || ""
+  );
+
   const { countCartItem } = useContext(Context);
   // console.log(context);
 
@@ -39,6 +44,18 @@ const TheNavBar = () => {
     navigate("/login");
   };
 
+  const handleSearchProduct = (e) => {
+    const { value } = e.target;
+    setSearchParams({ product: searchQuery });
+    setSearchQuery(value);
+
+    if (value) {
+      navigate(`/search?product=${encodeURIComponent(searchQuery)}`);
+    } else {
+      navigate("/search");
+    }
+  };
+
   return (
     <header className="bg-white shadow-md h-16 font-Sen fixed top-0 left-0 right-0 bottom-0 z-10">
       <div className="h-full container mx-auto px-4 flex justify-between items-center">
@@ -53,9 +70,11 @@ const TheNavBar = () => {
           <input
             type="text"
             name="search-product"
-            id="search-product"
+            id="searchProduct"
             className="w-full outline-none"
             placeholder="Search your products..."
+            value={searchQuery}
+            onChange={(e) => handleSearchProduct(e)}
           />
           <div className="text-lg min-w-[50px] flex justify-center items-center h-8 rounded-r-full bg-red-500 text-white">
             <svg

@@ -75,6 +75,10 @@ const apiEndPointObj = {
     url: `${API_URI}/cart/delete-cart-item`,
     method: "DELETE",
   },
+  searchProduct: {
+    url: `${API_URI}/product/search-product`,
+    method: "GET",
+  },
 };
 
 export default apiEndPointObj;

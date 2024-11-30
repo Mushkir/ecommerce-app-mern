@@ -131,7 +131,7 @@ const TheCartPage = () => {
     <div className="mt-20 font-Sen container mx-auto px-2 sm:px-5">
       {/* Empty message */}
       <div className=" flex justify-center">
-        {countCartItem === 0 && (
+        {countCartItem === 0 && !loading && (
           <div className="mt-20">
             <img
               src="https://bakestudio.in/assets/images/cart/empty-cart.gif"

@@ -7,6 +7,7 @@ import {
   getProductById,
   modifyProduct,
   readProducts,
+  searchProduct,
 } from "../controllers/product.controller.js";
 
 const productRouter = express.Router();
@@ -26,5 +27,7 @@ productRouter.get(
 
 // Get product detail by id
 productRouter.post("/get-product-detail", getProductById);
+
+productRouter.get("/search-product", searchProduct);
 
 export default productRouter;

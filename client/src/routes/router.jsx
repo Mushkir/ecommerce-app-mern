@@ -12,6 +12,7 @@ import TheAllUsersPage from "../pages/TheAllUsersPage";
 import TheAllProductsPage from "../pages/TheAllProductsPage";
 import TheShowProductDetail from "../pages/TheShowProductDetail";
 import TheCartPage from "../pages/TheCartPage";
+import TheSearchPage from "../pages/TheSearchPage";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "/product/:id",
         element: <TheShowProductDetail />,
+      },
+      {
+        path: "/search",
+        element: <TheSearchPage />,
       },
       {
         path: "*",
