@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import PropTypes from "prop-types";
 import TheListSkeleton from "./TheListSkeleton";
 import currencyFormat from "../utils/currencyFormat";
