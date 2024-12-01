@@ -13,6 +13,7 @@ import TheAllProductsPage from "../pages/TheAllProductsPage";
 import TheShowProductDetail from "../pages/TheShowProductDetail";
 import TheCartPage from "../pages/TheCartPage";
 import TheSearchPage from "../pages/TheSearchPage";
+import TheFilterProductsPage from "../pages/TheFilterProductsPage";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/search",
         element: <TheSearchPage />,
+      },
+      {
+        path: "/:categoryName",
+        element: <TheFilterProductsPage />,
       },
       {
         path: "*",

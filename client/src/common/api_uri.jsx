@@ -79,6 +79,10 @@ const apiEndPointObj = {
     url: `${API_URI}/product/search-product`,
     method: "GET",
   },
+  filterByCategory: {
+    url: `${API_URI}/product/filter-by-category`,
+    method: "POST",
+  },
 };
 
 export default apiEndPointObj;

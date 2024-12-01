@@ -10,7 +10,7 @@ import { UserLoggedIn } from "../redux/user/userSlice";
 const TheLoginPage = () => {
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
+    password: "Pa$$w0rd!",
   });
 
   const [error, setError] = useState(false);

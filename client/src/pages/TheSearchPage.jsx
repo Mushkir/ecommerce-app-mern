@@ -28,7 +28,7 @@ const TheSearchPage = () => {
       if (!respData.error) {
         setSearchResult(respData.data);
       }
-      //   console.log(respData);
+      console.log(respData);
     } catch (error) {
       console.error(error);
     }

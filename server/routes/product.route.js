@@ -2,6 +2,7 @@ import express from "express";
 import userAuth from "../middlewares/userAuth.middeware.js";
 import {
   CreateProduct,
+  filterProductByCategory,
   getAllProductCategory,
   getCategoryWiseProducts,
   getProductById,
@@ -29,5 +30,7 @@ productRouter.get(
 productRouter.post("/get-product-detail", getProductById);
 
 productRouter.get("/search-product", searchProduct);
+
+productRouter.post("/filter-by-category", filterProductByCategory);
 
 export default productRouter;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import apiEndPointObj from "../common/api_uri";
 import TheListSkeleton from "./TheListSkeleton";
+import { Link } from "react-router-dom";
 
 const TheProductCategoryList = () => {
   const [categories, setCategories] = useState([]);
@@ -48,8 +49,9 @@ const TheProductCategoryList = () => {
             // console.log(category);
 
             return (
-              <div
-                className="text-center flex flex-col justify-center items-center cursor-pointer"
+              <Link
+                to={`/${category?.category}`}
+                className="text-center flex flex-col justify-center items-center"
                 key={index}
               >
                 <div className="bg-slate-200 p-2 w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden mx-auto">
@@ -60,7 +62,7 @@ const TheProductCategoryList = () => {
                   />
                 </div>
                 <span className=" capitalize">{category.category}</span>
-              </div>
+              </Link>
             );
           })
         )}

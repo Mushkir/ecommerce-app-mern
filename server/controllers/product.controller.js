@@ -146,3 +146,19 @@ export const searchProduct = async (req, res) => {
     res.status(500).json({ message: error.message, error: true });
   }
 };
+
+// GET Method
+// Filter by category
+export const filterProductByCategory = async (req, res) => {
+  try {
+    const { data } = req?.body;
+
+    const filteredResults = await Product.find({
+      $and: [{ category: data }],
+    });
+
+    res.status(200).json({ data: filteredResults, error: false });
+  } catch (error) {
+    res.status(500).json({ message: error.message, error: true });
+  }
+};
