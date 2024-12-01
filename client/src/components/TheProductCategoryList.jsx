@@ -50,7 +50,7 @@ const TheProductCategoryList = () => {
 
             return (
               <Link
-                to={`/${category?.category}`}
+                to={`/product?q=${category?.category}`}
                 className="text-center flex flex-col justify-center items-center"
                 key={index}
               >

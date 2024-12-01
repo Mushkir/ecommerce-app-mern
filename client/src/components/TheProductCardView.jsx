@@ -52,7 +52,7 @@ const TheProductCardView = ({ loading, data }) => {
         />
       ) : (
         data.map((product) => {
-          console.log(product);
+          // console.log(product);
           return (
             <Link
               to={`/product/${product?._id}`}

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import productCategory from "../helpers/productCategory";
 import apiEndPointObj from "../common/api_uri";
-import TheSearchProductCardView from "../components/TheSearchProductCardView";
 import TheProductCardView from "../components/TheProductCardView";
+import { useLocation } from "react-router-dom";
 
 const TheFilterProductsPage = () => {
+  const location = useLocation();
+  const query = new URLSearchParams(location.search).get("q");
+
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -34,17 +37,25 @@ const TheFilterProductsPage = () => {
       if (!respData.error) {
         setProducts(respData.data);
       }
-      console.log(respData);
     } catch (error) {
       console.error(error);
     }
   };
 
+  // Sync query parameter with selectedCategory state
+  useEffect(() => {
+    if (query) {
+      setSelectedCategory((prevCategories) =>
+        prevCategories.includes(query)
+          ? prevCategories
+          : [...prevCategories, query]
+      );
+    }
+  }, [query]);
+
   useEffect(() => {
     filterByCategory();
   }, [selectedCategory]);
-
-  // console.log(selectedCategory);
 
   return (
     <div className="font-Sen mt-20 container mx-auto px-5 w-full flex items-start gap-4">
@@ -57,7 +68,12 @@ const TheFilterProductsPage = () => {
           </h2>
           <form action="" method="post">
             <div className="flex items-center gap-2 mb-2">
-              <input type="radio" name="sortBy" id="lowToHigh" checked />
+              <input
+                type="radio"
+                name="sortBy"
+                id="lowToHigh"
+                defaultChecked={true}
+              />
               <label htmlFor="lowToHigh" className="text-sm text-slate-800">
                 Price - Low to High
               </label>
