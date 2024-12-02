@@ -2,15 +2,24 @@ import React, { useEffect, useState } from "react";
 import productCategory from "../helpers/productCategory";
 import apiEndPointObj from "../common/api_uri";
 import TheProductCardView from "../components/TheProductCardView";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 const TheFilterProductsPage = () => {
   const location = useLocation();
-  const query = new URLSearchParams(location.search).get("q");
+  let query = new URLSearchParams(location.search).get("q");
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const q = searchParams.get("q");
+  // console.log(searchParams.get("q"));
+
+  // console.log(location);
 
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  // console.log(selectedCategory);
+  // console.log(location);
 
   const handleOnChange = (value) => {
     setSelectedCategory((prevValue) =>
@@ -41,6 +50,10 @@ const TheFilterProductsPage = () => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    setSearchParams({ q: selectedCategory });
+  }, [selectedCategory]);
 
   // Sync query parameter with selectedCategory state
   useEffect(() => {
